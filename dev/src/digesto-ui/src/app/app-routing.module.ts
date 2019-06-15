@@ -7,6 +7,7 @@ import { LoaderComponent } from './core/loader/loader.component';
 import { OidpGuard } from './core/oauth2/oidp.guard';
 import { SistemaComponent } from './core/sistema/sistema.component';
 import { InicioComponent } from './modules/inicio/inicio.component';
+import { UploadComponent } from './modules/normativas/upload/upload.component';
 
 
 
@@ -21,7 +22,8 @@ const routes: Routes = [
      canActivate: [OidpGuard],
      component: SistemaComponent,
      children: [
-      { path: 'inicio', component: InicioComponent }
+      //{ path: 'inicio', component: InicioComponent },
+      { path: 'inicio', component: UploadComponent }
      ]
   }
 

@@ -1,0 +1,41 @@
+
+<form [formGroup]='form' (ngSubmit)='subir()'>
+
+  <mat-form-field>
+    <mat-label>numero</mat-label>
+    <input matInput formControlName='numero'>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>extracto</mat-label>
+    <textarea matInput formControlName='extracto'></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Fecha" fromControlName='fecha'>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <div [formGroup]='tipo'>
+    <mat-checkbox formControlName='disposicion'>Disposición</mat-checkbox>
+    <mat-checkbox formControlName='ordenanza'>Ordenanza</mat-checkbox>
+    <mat-checkbox formControlName='resolucion'>Resolución</mat-checkbox>
+  </div>
+
+  <mat-form-field>
+    <mat-label>Emisor</mat-label>
+    <mat-select formControlName='emisor'>
+      <mat-option *ngFor="let emisor of (emisores$ | async)" value='{{emisor.id}}'>
+        {{emisor.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>  
+  
+  <div [formGroup]='estado'>
+    <mat-checkbox formControlName='aprobado'>Aprobado</mat-checkbox>
+    <mat-checkbox formControlName='pendiente'>Pendiente</mat-checkbox>
+  </div>
+
+  <button type='submit'>Subir</button>
+</form>
