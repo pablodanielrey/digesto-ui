@@ -1,0 +1,21 @@
+.pantalla {
+    padding: 20px;
+}
+
+.listadoRutas {
+    width: 100%;
+}
+
+.bloques {
+    margin-bottom: 20px;
+    width: 50%;
+    @media screen and (max-width: 768px) {
+        width: 95%;
+    }
+}
+
+.btnPreload {
+    margin-right: 5px;
+}
+
+

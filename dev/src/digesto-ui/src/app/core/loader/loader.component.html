@@ -1,0 +1,33 @@
+<div *ngIf='visible' class="loader">
+
+    <mat-toolbar class="toolbar">
+        <div class="textSistema">{{cabecera}} </div> 
+        <div class="textVersion">versión {{version}}</div> 
+    </mat-toolbar>
+
+     <div class="contenido">
+
+        <div class="bloqueContenido">
+
+            <div class="logo">G</div>
+
+            <div class="tituloSistema">{{tituloSistema}}</div>
+      
+            <div class="subTitulo">{{subtituloSistema}}</div>
+
+            <button mat-button (click)="acceder()" color="">ACCEDER</button>
+
+        </div>
+
+        <div>
+
+            <div class="textoDesarrollo"><p>{{desarrolloSistema}}</p></div>
+
+            <div><img class="logoFce" src="{{logoSistema}}"></div>
+
+        </div>
+
+      </div>
+
+</div>
+

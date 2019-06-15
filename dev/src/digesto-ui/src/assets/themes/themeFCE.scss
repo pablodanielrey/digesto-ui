@@ -1,0 +1,159 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+
+$mat-primaryfce: (
+    50 : #e4f2fe,
+    100 : #bce0fb,
+    200 : #90cbf9,
+    300 : #64b6f7,
+    400 : #42a6f5,
+    500 : #2196f3,
+    600 : #1d8ef1,
+    700 : #1883ef,
+    800 : #1479ed,
+    900 : #0b68ea,
+    A100 : #ffffff,
+    A200 : #e1ecff,
+    A400 : #aeccff,
+    A700 : #95bcff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$mat-secondaryfce: (
+    50 : #e5e5e5,
+    100 : #bebebe,
+    200 : #939393,
+    300 : #676767,
+    400 : #474747,
+    500 : #262626,
+    600 : #222222,
+    700 : #1c1c1c,
+    800 : #171717,
+    900 : #0d0d0d,
+    A100 : #eb6969,
+    A200 : #e53c3c,
+    A400 : #ee0000,
+    A700 : #d40000,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$mat-accentfce: (
+    50 : #e1f5fe,
+    100 : #b3e5fc,
+    200 : #81d4fa,
+    300 : #4fc3f7,
+    400 : #29b6f6,
+    500 : #03a9f4,
+    600 : #03a2f3,
+    700 : #0298f1,
+    800 : #028fef,
+    900 : #017eec,
+    A100 : #ffffff,
+    A200 : #e0efff,
+    A400 : #add4ff,
+    A700 : #93c7ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+$mat-warnfce: (
+    50 : #fde7e8,
+    100 : #f9c3c6,
+    200 : #f59ba0,
+    300 : #f17379,
+    400 : #ee555d,
+    500 : #eb3740,
+    600 : #e9313a,
+    700 : #e52a32,
+    800 : #e2232a,
+    900 : #dd161c,
+    A100 : #ffffff,
+    A200 : #ffdadb,
+    A400 : #ffa7aa,
+    A700 : #ff8e91,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+$fce-app-primary: mat-palette($mat-primaryfce, 500);
+$fce-app-accent:  mat-palette($mat-accentfce, 500, A400, A700);
+$fce-app-warn:    mat-palette($mat-warnfce, 600);
+
+$fce-app-theme: mat-light-theme($fce-app-primary, $fce-app-accent, $fce-app-warn);
+
+
+.temaFceClaro {
+@include angular-material-theme($fce-app-theme);
+}
+
+$dark-primary: mat-palette($mat-warnfce, 500);
+$dark-accent:  mat-palette($mat-primaryfce, 500, A400, A700);
+$dark-warn:    mat-palette($mat-accentfce, 600);
+
+$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+.temaFceOscuro {
+  @include angular-material-theme($dark-theme);
+}

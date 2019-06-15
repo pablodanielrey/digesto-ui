@@ -1,0 +1,91 @@
+<mat-toolbar color="primary" >DEBUG</mat-toolbar>
+
+<div class="pantalla">
+
+        <mat-card class="bloques">
+            <mat-card-title>Rutas</mat-card-title>
+            <mat-card-content>
+                    <form [formGroup]='form' (ngSubmit)='navegar()'>
+                            <!--
+                            <mat-form-field>
+                                <mat-label>Ruta</mat-label>
+                                <input matInput formControlName='ruta'/>
+                            </mat-form-field>
+                            -->
+                            <mat-form-field class='listadoRutas'>
+                                <mat-label>Seleccionar Ruta</mat-label>
+                                <mat-select formControlName='ruta'>
+                                    <mat-option *ngFor='let r of rutas' [value]="r.path">
+                                        {{r.path}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button mat-stroked-button color="primary" type='submit'>Navegar</button>
+                        </form>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="bloques"> 
+                <mat-card-title>Preload's</mat-card-title>
+                <mat-card-content>
+                        Preload Completo
+                        <button mat-stroked-button color="primary" (click)='activar_preload_completo()' class="btnPreload">Activar</button>
+                        <button mat-stroked-button color="primary" (click)='desactivar_preload_completo()' class="btnPreload">Desactivar</button>
+
+                        Preload Parcial
+                        <button mat-stroked-button color="primary" (click)='activar_preload_parcial()' class="btnPreload">Activar</button>
+                        <button mat-stroked-button color="primary" (click)='desactivar_preload_parcial()' class="btnPreload">Desactivar</button>
+                </mat-card-content>
+        </mat-card>
+
+        <mat-card class="bloques"> 
+                <mat-card-title>Permisos Disponibles</mat-card-title>
+                <mat-card-content>
+                    <div *ngFor='let p of permisos_menu$ | async'>
+                        <mat-checkbox [(ngModel)]='p.checked' (click)='configurar_permiso(p)'>{{p.item}} - {{p.permiso}}</mat-checkbox>
+                        <button mat-button (click)='eliminar_permiso(p)'>X</button>
+                    </div>
+                </mat-card-content>
+        </mat-card>
+
+        <mat-card class="bloques"> 
+                <mat-card-title>Permisos Activados</mat-card-title>
+                <mat-card-content>
+                    <div *ngFor='let p of permisos_configurados$ | async'>
+                        <div>{{p.permiso}}</div>
+                    </div>
+                </mat-card-content>
+        </mat-card>
+
+        <mat-card class="bloques"> 
+                <mat-card-title>Permisos Denegados</mat-card-title>
+                <mat-card-content>
+                    <div *ngFor='let p of permisos_denegados$ | async'>
+                        <div>{{p.permiso}}</div>
+                    </div>
+                </mat-card-content>
+        </mat-card>
+
+        <mat-card class="bloques"> 
+                <mat-card-title>Permisos No En CACHE</mat-card-title>
+                <mat-card-content>
+                    <div *ngFor='let p of permisos_faltantes$ | async'>
+                        <div>{{p.permiso}}</div>
+                    </div>
+                </mat-card-content>
+        </mat-card>
+
+        <mat-card class="bloques"> 
+            <mat-card-title>Modals</mat-card-title>
+            <mat-card-content>
+                <button mat-raised-button (click)="openInfoModal()">Show Info Modal</button>
+                <button mat-raised-button (click)="openWarningModal()">Show Warning Modal</button>
+                <button mat-raised-button (click)="openErrorModal()">Show Error Modal</button>
+                <button mat-raised-button (click)="openConfirmModal()">Show Confirm Modal</button>
+            </mat-card-content>
+        </mat-card>        
+
+</div>
+
+
+

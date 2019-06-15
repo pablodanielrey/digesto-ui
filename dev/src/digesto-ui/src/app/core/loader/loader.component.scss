@@ -1,0 +1,157 @@
+$colorPrimario: #E22748;
+
+.loader {
+  height: 100vh;
+}
+
+.toolbar {
+  background-color: #3e3e3e;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.textSistema {
+  font-weight: 200;
+}
+
+.textVersion {
+  font-size: 11px;
+  opacity: 0.5;
+}
+
+.contenido {
+  height: calc(100% - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  align-items: center; 
+  @media screen and (min-width: 1800px) {
+    zoom: 1.2;
+  }
+}
+
+.bloqueContenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 10px 0;
+  width: 20px;
+  height: 20px;
+  font-size: 80px;
+  font-weight: 700;
+  padding: 40px;
+  color: white;
+  background-color: $colorPrimario;
+  border-radius: 100%;
+}
+
+/* ----------  ANIMACION TITULO  ----------------------- */
+
+.tituloSistema{
+  color: #3e3e3e;
+  font-size: 70px;
+  font-weight: bold;
+	-webkit-animation: tituloSistema 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	        animation: tituloSistema 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+ @-webkit-keyframes tituloSistema {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes tituloSistema {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+.subTitulo {
+  font-weight: 100;
+  font-size: 20px;
+}
+
+button {
+  width: 200px;
+  margin: 50px;
+  border: 1px solid $colorPrimario;
+}
+
+.textoDesarrollo {
+  font-size: 11px;
+  color: #333333;
+}
+
+.logoFce {
+  max-width: 270px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

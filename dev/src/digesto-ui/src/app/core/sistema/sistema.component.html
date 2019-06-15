@@ -1,0 +1,128 @@
+<app-preload-parcial></app-preload-parcial>
+<app-preload-total></app-preload-total>
+<!-- <app-error></app-error> -->
+
+<mat-drawer-container class="sistema" autosize >
+
+  <!-- CABECERA -->
+    <mat-toolbar class="cabecera" color="primary">
+
+        <div>
+            <button mat-icon-button class="iconoCabecera" color="" (click)="drawer.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="tituloSistema">{{environment.loader.tituloSistema}}</span>
+        </div>
+
+        <div>
+
+            <button mat-icon-button>
+                <mat-icon class="btnFullScreen">aspect_ratio</mat-icon>
+            </button>
+
+            <button mat-button [matMenuTriggerFor]="menuDeUsuario">{{identity?.name}} {{identity?.family_name}} <mat-icon>keyboard_arrow_down</mat-icon></button>
+            <mat-menu #menuDeUsuario="matMenu">
+                  <button mat-menu-item><mat-icon class="iconoMenuUsuario">portrait</mat-icon>Mi Perfil</button>
+                  <button mat-menu-item><mat-icon class="iconoMenuUsuario">lock_outline</mat-icon>Cambiar Contraseña</button>
+                  <button mat-menu-item (click)='salir()'><mat-icon class="iconoMenuUsuario">exit_to_app</mat-icon>Salir</button>
+            </mat-menu>
+
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>color_lens</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <div class="seleccionTema">
+                    <button mat-mini-fab color="warn"  (click)="onSetTheme('temaFceClaro')"> <mat-icon>brush </mat-icon></button>
+                    <button mat-mini-fab color="primary"  (click)="onSetTheme('temaFceOscuro')"> <mat-icon>brush </mat-icon></button>
+                </div>    
+            </mat-menu>
+
+          <button mat-icon-button color="" (click)="drawer2.toggle()">
+            <mat-icon>apps</mat-icon>
+          </button>
+        </div>
+
+    </mat-toolbar>
+
+    <!-- MENUS -->
+      
+    <!-- Menu pincipal -->
+    <mat-drawer #drawer class="menu" mode="over" (openedStart)='refrescar_menu()'>
+        <mat-toolbar color="primary">
+            <span>{{environment.loader.tituloSistema}}</span>
+        </mat-toolbar>
+
+        <div *ngFor='let menu of menu_sistema$ | async'>
+
+            <!--
+            <mat-expansion-panel *ngIf='tiene_submenu(menu)'>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon class="iconoMenu">{{menu.item.icono}}</mat-icon>{{menu.item.item}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <a mat-button *ngFor='let submenu of submenu(menu.item) | async' class="btnMenu" (click)='navegar_hacia(menu.item)'>
+                    <mat-icon class="iconoMenu">{{submenu.item.icono}}</mat-icon>{{submenu.item.item}}
+                </a>
+                <mat-checkbox>text</mat-checkbox>
+            </mat-expansion-panel>
+        -->
+        <button mat-button *ngIf='!tiene_submenu(menu)' class="btnMenu" (click)='navegar_hacia(menu.item); cerrar_menu(drawer)'>
+            <mat-icon class="iconoMenu" color="primary">{{menu.item.icono}}</mat-icon>{{menu.item.item}}
+        </button>
+        </div>
+
+        <!-- VIEJO -->
+        <!-- <button *ngIf="chequearPerfil(['super-admin','buscar_usuario'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/usuario/buscar">
+            <mat-icon class="iconoMenu">search</mat-icon>Buscar Usuario
+        </button>
+        <button *ngIf="chequearPerfil(['super-admin','crear_usuario'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/usuario/crear">
+            <mat-icon class="iconoMenu">perm_identity</mat-icon>Crear Usuario
+        </button>
+        <button *ngIf="chequearPerfil(['super-admin','buscar_lugar'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/lugares/buscar">
+            <mat-icon class="iconoMenu">search</mat-icon>Buscar Lugar
+        </button>  
+        <button *ngIf="chequearPerfil(['super-admin','crear_lugar'])" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/lugares/crear">
+            <mat-icon class="iconoMenu">bookmark_border</mat-icon>Crear Lugar
+        </button>
+        <button *ngIf="chequearPerfil(['super-admin','buscar_lugar']) && mostrarOrganigrama()" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/lugares/lugares">
+            <mat-icon class="iconoMenu">device_hub</mat-icon>Organigrama
+        </button>
+        <button *ngIf="chequearPerfil(['super-admin','sincronizacion_usuario']) && mostrarSincoUsuarios()" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/sinc/usuarios">
+            <mat-icon class="iconoMenu">device_hub</mat-icon>Sincronizacion Usuarios
+        </button>
+        <button *ngIf="chequearPerfil(['super-admin','sincronizacion_login']) && mostrarSincoLogin()" class="btnMenu" mat-button (click)='cerrar_menu(drawer)' routerLink="/sistema/sinc/login">
+            <mat-icon class="iconoMenu">device_hub</mat-icon>Sincronizacion Login
+        </button>     -->
+    </mat-drawer>
+    
+    <!-- Menu Aplicaciones -->
+    <mat-drawer #drawer2 class="menu" mode="over" position="end">
+        <mat-toolbar color="primary">
+            <mat-icon class="iconoMenuApps">apps</mat-icon>
+            <span> Apps FCE</span>
+        </mat-toolbar>
+        <div class="contenidoMenuApps">
+            <div>
+                Sistemas FCE
+            </div>
+            <div>
+                <mat-divider></mat-divider>
+                <div><i class="material-icons">help_outline </i>Acerca de</div>
+                <div class="textSistema"><b>Apps FCE | v. 1.0.1</b></div>
+                <div class="textInfo">DiTeSI | Dirección de Tecnologías y Sistemas Informáticos | FCE - UNLP</div>
+            </div>
+        </div>
+    </mat-drawer>
+
+  
+  <!-- CONTENIDO -->
+  
+  <div class="contenido">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+</mat-drawer-container>
+
