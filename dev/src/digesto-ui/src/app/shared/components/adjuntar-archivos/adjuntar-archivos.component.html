@@ -1,0 +1,18 @@
+
+
+  <input hidden type="file" multiple #fileInput (change)='onFileChange($event)'>
+  <!-- <button matSuffix mat-mini-fab (click)="fileInput.click()">file</button> -->
+  <mat-chip-list #chipListAdjuntarArchivos>
+    <mat-chip *ngFor='let f of value' (removed)='deseleccionar(f)'>
+      <div>
+        {{nombre_de_archivo(f)}}
+        <mat-progress-bar *ngIf='f.cargando' mode='determinate' [value]='f.cargado'></mat-progress-bar>
+      </div>
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+  <div class='contenedor-subir'>
+    <input class='subir' mat-input placeholder=" Subir Archivo..." [matChipInputFor]="chipListAdjuntarArchivos">
+    <mat-icon class='material-icons-outlined'>cloud_upload</mat-icon>
+  </div>
+  

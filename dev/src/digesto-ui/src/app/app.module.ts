@@ -2,19 +2,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
+
+import { AdjuntarArchivosComponent } from './shared/components/adjuntar-archivos/adjuntar-archivos.component';
+
 import { InicioComponent } from './modules/inicio/inicio.component';
 import { UploadComponent } from './modules/normativas/upload/upload.component';
 
-
-
 @NgModule({
   declarations: [
+    AdjuntarArchivosComponent,
     AppComponent,
     InicioComponent,
     UploadComponent

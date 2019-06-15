@@ -31,7 +31,8 @@ export class UploadComponent implements OnInit {
       'estado': fb.group({
         'aprobado': [true],
         'pendiente': [false]
-      })
+      }),
+      'archivo': [[]]
     });
 
     this.emisores$ = of([{ id: '1', nombre: 'decanato' }, { id: '2', nombre: 'secretaria académica'}]);
