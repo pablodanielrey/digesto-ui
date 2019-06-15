@@ -112,7 +112,7 @@ export class AdjuntarArchivosComponent implements ControlValueAccessor, MatFormF
     this.describedBy = ids.join(' ');
   }
   
-  @ViewChild('fileInput') fileInputRef: ElementRef;
+  @ViewChild('fileInput', null  ) fileInputRef: ElementRef;
   onContainerClick(event: MouseEvent): void {
     //let event = new MouseEvent('click', {bubbles:true});
     //this.renderer.invokeElementMethod(this.fileInputRef.nativeElement, 'dispatchEvent', [event]);

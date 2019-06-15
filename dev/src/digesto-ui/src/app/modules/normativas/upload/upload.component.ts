@@ -61,7 +61,18 @@ export class UploadComponent implements OnInit, OnDestroy {
     console.log('subiendo');
     console.log(this.form.value);
 
-    let archivos = this.form.get('archivo').value;
+    let archivos = [];
+    this.form.get('archivo').value.forEach(a => {
+      archivos.push({
+        name: a.archivo.name,
+        size: a.archivo.size,
+        type: a.archivo.type,
+        lastModified: a.archivo.lastModifiedDate,
+        contenido: a.contenido
+      })
+    }) 
+
+
     let t = this.tipo.get('disposicion').value ? 'disposicion' : (this.tipo.get('ordenanza').value ? 'ordenanza' : (this.tipo.get('resolucion').value ? 'resolucion' : ''));
     let e = this.estado.get('aprobado').value ? 'aprobado' : 'pendiente';
     let norma = {
