@@ -17,6 +17,7 @@
 
 <div *ngFor='let n of (normas$ | async)'>
   {{n.numero}}
-  {{n.archivo_id}}
   {{n.fecha}}
+  {{n.tipo}}
+  {{n.emisor}}
 </div>
