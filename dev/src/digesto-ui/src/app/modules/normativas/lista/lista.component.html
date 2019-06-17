@@ -1,0 +1,22 @@
+
+<form [formGroup]='filters' (ngSubmit)='buscar()'>
+  <mat-form-field>
+    <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
+    <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
+    <mat-datepicker #desde></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
+    <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
+    <mat-datepicker #hasta></mat-datepicker>
+  </mat-form-field>
+
+  <button type='submit'>Buscar</button>
+</form>
+
+<div *ngFor='let n of (normas$ | async)'>
+  {{n.numero}}
+  {{n.archivo_id}}
+  {{n.fecha}}
+</div>

@@ -14,13 +14,17 @@ import { AdjuntarArchivosComponent } from './shared/components/adjuntar-archivos
 
 import { InicioComponent } from './modules/inicio/inicio.component';
 import { UploadComponent } from './modules/normativas/upload/upload.component';
+import { ListaComponent } from './modules/normativas/lista/lista.component';
+import { DetalleComponent } from './modules/normativas/detalle/detalle.component';
 
 @NgModule({
   declarations: [
     AdjuntarArchivosComponent,
     AppComponent,
     InicioComponent,
-    UploadComponent
+    UploadComponent,
+    ListaComponent,
+    DetalleComponent
   ],
   imports: [
     BrowserModule,

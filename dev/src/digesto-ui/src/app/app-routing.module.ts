@@ -8,6 +8,8 @@ import { OidpGuard } from './core/oauth2/oidp.guard';
 import { SistemaComponent } from './core/sistema/sistema.component';
 import { InicioComponent } from './modules/inicio/inicio.component';
 import { UploadComponent } from './modules/normativas/upload/upload.component';
+import { ListaComponent } from './modules/normativas/lista/lista.component';
+import { DetalleComponent } from './modules/normativas/detalle/detalle.component';
 
 
 
@@ -22,8 +24,15 @@ const routes: Routes = [
      canActivate: [OidpGuard],
      component: SistemaComponent,
      children: [
-      //{ path: 'inicio', component: InicioComponent },
-      { path: 'inicio', component: UploadComponent }
+      { path: 'inicio', component: InicioComponent },
+      { 
+        path: 'normativas',
+        children: [
+          { path: 'cargar', component: UploadComponent },
+          { path: 'listar', component: ListaComponent },
+          { path: 'detalle', component: DetalleComponent }
+        ]
+      }
      ]
   }
 

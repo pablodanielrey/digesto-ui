@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Emisor } from '../entities/emisor';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, tap, mergeMap } from 'rxjs/operators';
 
 
 
@@ -23,6 +23,30 @@ export class DigestoService {
     return of([{ id: '1', nombre: 'decanato' }, { id: '2', nombre: 'secretaria académica'}]);
   }
 
+  obtener_tipos(): Observable<any[]> {
+    return of([])
+  }
+
+  obtener_normas(desde:Date, hasta:Date): Observable<any[]> {
+    let url = 'http://localhost:11302/digesto/api/v1.0/norma';
+    /*
+    let params = new HttpParams({
+      fromObject: {
+        desde: desde.toISOString(),
+        hasta: hasta.toISOString()
+      }
+    });*/
+    let params = {
+      desde: desde.toISOString(),
+      hasta: hasta.toISOString()
+    }
+    let req = this.http.get(url, { params: params }).pipe(
+      tap(v => console.log(v)),
+      map(r => r['normas'])
+    )
+    return req;
+  }
+
   subir_norma(norma: any): Observable<any> {
     let url = 'http://localhost:11302/digesto/api/v1.0/norma';
     let data = norma;
@@ -33,5 +57,7 @@ export class DigestoService {
     );
     return req;
   }
+
+
 
 }
