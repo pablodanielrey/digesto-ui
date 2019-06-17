@@ -17,10 +17,13 @@
 
 <div *ngFor='let n of (normas$ | async)'>
   {{n.numero}}
-  {{n.fecha}}
+  {{n.fecha | date}}
   {{n.tipo}}
   {{n.emisor}}
-  {{n.id}}
-  <button (click)='detalle_norma(n.id)'>detalle</button>
-  <a target='_blank' [href]='detalle_norma_url(n.id)'>detalle</a>
+  
+  <button (click)='detalle_norma(n.id)'>detalle1</button>
+
+  <a target='_blank' [href]='detalle_norma_url(n.id)'>detalle2</a>
+
+  <a target='_blank' [href]="archivoUrl(n.archivo_id)">archivo</a>
 </div>

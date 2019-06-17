@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DigestoService } from 'src/app/shared/services/digesto.service';
 import { Observable, Subject } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, switchMap } from 'rxjs/operators';
 import { NavegarService } from 'src/app/core/navegar.service';
 
 @Component({
@@ -27,13 +27,14 @@ export class ListaComponent implements OnInit, OnDestroy {
           private fb: FormBuilder,
           private navegar: NavegarService) { 
 
+    let mes_milis = 1000 * 60 * 60 * 24 * 30;
     this.filters = this.fb.group({
-      'desde':[new Date()],
+      'desde':[new Date((new Date()).getTime() - mes_milis)],
       'hasta':[new Date()]
     });
 
     this.normas$ = this.buscar$.pipe(
-      mergeMap( _ => {
+      switchMap( _ => {
         let desde = this.desde;
         let hasta = this.hasta;
         return this.service.obtener_normas(desde, hasta);
@@ -53,7 +54,9 @@ export class ListaComponent implements OnInit, OnDestroy {
     this.buscar$.next();
   }
 
-
+  archivoUrl(aid) {
+    return this.service.obtener_archivo_url(aid);
+  }
 
   // opción 1 usar navegar para ir al detalle de la norma.
   detalle_norma(nid) {

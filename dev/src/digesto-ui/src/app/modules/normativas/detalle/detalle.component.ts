@@ -5,10 +5,6 @@ import { Observable, of } from 'rxjs';
 import { Norma } from 'src/app/shared/entities/digesto';
 import { map, mergeMap, switchMap } from 'rxjs/operators';
 
-import { environment } from '../../../../environments/environment';
-
-const API_URL = environment.digestoApiUrl;
-
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
@@ -33,7 +29,7 @@ export class DetalleComponent implements OnInit {
   }
 
   archivoUrl(aid) {
-    return `${API_URL}/archivo/${aid}`;
+    return this.service.obtener_archivo_url(aid);
   }
 
   ngOnInit() {

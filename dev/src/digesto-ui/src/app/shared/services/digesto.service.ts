@@ -75,6 +75,8 @@ export class DigestoService {
     return req;
   }
 
-
+  obtener_archivo_url(archivo_id) {
+    return `${API_URL}/archivo/${archivo_id}`;
+  }
 
 }
