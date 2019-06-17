@@ -1,3 +1,8 @@
-<p>
-  detalle works!
-</p>
+
+<div *ngIf='(norma$ | async) as norma'>
+  {{norma.numero}}
+  {{norma.fecha | date}}
+  {{norma.emisor}}
+  {{norma.tipo}}
+  <a target='_blank' [href]="archivoUrl(norma.archivo_id)">{{norma.archivo_id}}</a>
+</div>

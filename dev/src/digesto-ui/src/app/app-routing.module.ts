@@ -30,7 +30,7 @@ const routes: Routes = [
         children: [
           { path: 'cargar', component: UploadComponent },
           { path: 'listar', component: ListaComponent },
-          { path: 'detalle', component: DetalleComponent }
+          { path: 'detalle/:id', component: DetalleComponent }
         ]
       }
      ]

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Emisor, Tipo } from '../entities/digesto';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, tap, mergeMap, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+
+import { Emisor, Tipo, Norma } from '../entities/digesto';
 
 const API_URL = environment.digestoApiUrl;
 
@@ -53,6 +54,16 @@ export class DigestoService {
     let req = this.http.get(url, { params: params }).pipe(
       tap(v => console.log(v)),
       map(r => r['normas'])
+    )
+    return req;
+  }
+
+  obtener_norma(id:string): Observable<Norma> {
+    let url = `${API_URL}/norma/${id}`;
+    let req = this.http.get(url).pipe(
+      tap(v => console.log(v)),
+      map(r => r['norma']),
+      tap(v => console.log(v))
     )
     return req;
   }
