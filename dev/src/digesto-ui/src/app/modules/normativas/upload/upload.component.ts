@@ -74,13 +74,13 @@ export class UploadComponent implements OnInit, OnDestroy {
 
 
     let t = this.tipo.get('disposicion').value ? 'disposicion' : (this.tipo.get('ordenanza').value ? 'ordenanza' : (this.tipo.get('resolucion').value ? 'resolucion' : ''));
-    let e = this.estado.get('aprobado').value ? 'aprobado' : 'pendiente';
+    let v = this.estado.get('aprobado').value ? true : false;
     let norma = {
       'numero': this.form.get('numero').value,
       'extracto': this.form.get('extracto').value,
       'tipo': t,
       'emisor': this.form.get('emisor').value,
-      'estado': e,
+      'visible': v,
       'archivo': archivos.length > 0 ? archivos[0] : null
     }
 
