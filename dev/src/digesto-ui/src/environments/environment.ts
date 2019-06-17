@@ -7,6 +7,7 @@ export const environment = {
   loginApiUrl: 'https://api.econo.unlp.edu.ar/login/api/v1.0',
   wardenApiUrl: 'https://api.econo.unlp.edu.ar/warden/api/v1.0',
   oidp_issuer: 'https://oidc.econo.unlp.edu.ar/',
+  digestoApiUrl: 'http://localhost:11302/digesto/api/v1.0',
 
   client_id: 'digesto-ui',
   version: '0.0.1a',

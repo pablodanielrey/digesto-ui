@@ -3,9 +3,9 @@ import { Emisor } from '../entities/emisor';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, tap, mergeMap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
-
-
+const API_URL = environment.digestoApiUrl;
 
 export interface Estado {
   status: number,
@@ -28,7 +28,7 @@ export class DigestoService {
   }
 
   obtener_normas(desde:Date, hasta:Date): Observable<any[]> {
-    let url = 'http://localhost:11302/digesto/api/v1.0/norma';
+    let url = `${API_URL}/norma`;
     /*
     let params = new HttpParams({
       fromObject: {
@@ -48,7 +48,7 @@ export class DigestoService {
   }
 
   subir_norma(norma: any): Observable<any> {
-    let url = 'http://localhost:11302/digesto/api/v1.0/norma';
+    let url = `${API_URL}/norma`;
     let data = norma;
     let req = this.http.post(url, data).pipe(
       map((res: Response) => {

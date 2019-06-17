@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'loader', component: LoaderComponent }, 
   {
      path:'sistema',
-     canActivate: [OidpGuard],
+     //canActivate: [OidpGuard],
      component: SistemaComponent,
      children: [
       { path: 'inicio', component: InicioComponent },
@@ -34,7 +34,8 @@ const routes: Routes = [
         ]
       }
      ]
-  }
+  },
+  { path: '**', redirectTo: '/sistema/normativas/listar' }
 
 ];
 
