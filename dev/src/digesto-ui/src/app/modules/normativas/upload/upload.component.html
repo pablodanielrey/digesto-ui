@@ -3,7 +3,7 @@
 
   <mat-form-field>
     <mat-label>numero</mat-label>
-    <input matInput formControlName='numero'>
+    <input matInput formControlName='numero' required>
   </mat-form-field>
 
   <mat-form-field>
@@ -12,20 +12,31 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Fecha" fromControlName='fecha'>
+    <input matInput [matDatepicker]="picker" placeholder="Fecha" fromControlName='fecha' readonly required>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
+
+  <!--
   <div [formGroup]='tipo'>
     <mat-checkbox formControlName='disposicion'>Disposición</mat-checkbox>
     <mat-checkbox formControlName='ordenanza'>Ordenanza</mat-checkbox>
     <mat-checkbox formControlName='resolucion'>Resolución</mat-checkbox>
   </div>
+  -->
+  <mat-form-field>
+    <mat-label>Tipo</mat-label>
+    <mat-select formControlName='tipo' required>
+      <mat-option *ngFor="let tipo of (tipos$ | async)" value='{{tipo.id}}'>
+        {{tipo.tipo}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>  
 
   <mat-form-field>
     <mat-label>Emisor</mat-label>
-    <mat-select formControlName='emisor'>
+    <mat-select formControlName='emisor' required>
       <mat-option *ngFor="let emisor of (emisores$ | async)" value='{{emisor.id}}'>
         {{emisor.nombre}}
       </mat-option>
@@ -39,8 +50,8 @@
   
   <mat-form-field>
     <mat-label>Normativa</mat-label>
-    <adjuntar-archivos formControlName='archivo'></adjuntar-archivos>
+    <adjuntar-archivos formControlName='archivo' required></adjuntar-archivos>
   </mat-form-field>
 
-  <button type='submit'>Aceptar</button>
+  <button matButton type='submit'>Aceptar</button>
 </form>

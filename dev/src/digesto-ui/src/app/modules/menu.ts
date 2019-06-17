@@ -1,5 +1,7 @@
 import { MenuSistema } from '../core/sistema/types';
   
 export const menu : MenuSistema = [
-    { item: 'Normativas', menu: null, ruta: '/sistema/normativas/listar', icono: 'filter_1', permisos: [] }
+    { item: 'Cargar', menu: null, ruta: '/sistema/normativas/cargar', icono: 'filter_1', permisos: [] },
+    { item: 'Listado', menu: null, ruta: '/sistema/normativas/listar', icono: 'filter_1', permisos: [] }
+    
 ];

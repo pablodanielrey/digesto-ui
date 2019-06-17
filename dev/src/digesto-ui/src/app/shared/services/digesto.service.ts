@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Emisor } from '../entities/emisor';
+import { Emisor, Tipo } from '../entities/digesto';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, tap, mergeMap } from 'rxjs/operators';
+import { map, tap, mergeMap, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 const API_URL = environment.digestoApiUrl;
@@ -20,11 +20,21 @@ export class DigestoService {
   constructor(private http: HttpClient) { }
 
   obtener_emisores(): Observable<Emisor[]> {
-    return of([{ id: '1', nombre: 'decanato' }, { id: '2', nombre: 'secretaria académica'}]);
+    let url = `${API_URL}/emisor`;
+    let req = this.http.get(url).pipe(
+      tap(v => console.log(v)),
+      map(r => r['emisores'])
+    )
+    return req;
   }
 
   obtener_tipos(): Observable<any[]> {
-    return of([])
+    let url = `${API_URL}/tipo`;
+    let req = this.http.get(url).pipe(
+      tap(v => console.log(v)),
+      map(r => r['tipos'])
+    )
+    return req;
   }
 
   obtener_normas(desde:Date, hasta:Date): Observable<any[]> {
@@ -50,11 +60,7 @@ export class DigestoService {
   subir_norma(norma: any): Observable<any> {
     let url = `${API_URL}/norma`;
     let data = norma;
-    let req = this.http.post(url, data).pipe(
-      map((res: Response) => {
-        return res.json;
-      })
-    );
+    let req = this.http.post(url, data);
     return req;
   }
 
