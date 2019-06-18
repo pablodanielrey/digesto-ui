@@ -18,9 +18,14 @@ export class ListaComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
+  columnas_ = ['numero','fecha','tipo','emisor','detalle','archivo'];
   filters: FormGroup = null;
   normas$: Observable<any[]> = null;
   buscar$ = new Subject<void>();
+
+  columnas() {
+    return this.columnas_;
+  }
 
   constructor(
           private service: DigestoService,

@@ -31,23 +31,61 @@
         <textarea matInput formControlName='texto'></textarea>
       </mat-form-field>
 
-      
+
 
       <button type='submit' class="btnGuardar" mat-flat-button color="primary">BUSCAR</button>
     </form>
     </mat-card>
 
-    <div *ngFor='let n of (normas$ | async)'>
-      {{n.numero}}
-      {{n.fecha | date}}
-      {{n.tipo}}
-      {{n.emisor}}
-      
-      <button (click)='detalle_norma(n.id)'>detalle1</button>
+    <mat-table [dataSource]="normas$ | async" multiTemplateDataRows>
 
-      <a target='_blank' [href]='detalle_norma_url(n.id)'>detalle2</a>
+      <ng-container matColumnDef="numero" sticky>
+          <mat-header-cell *matHeaderCellDef class="walter"> Número </mat-header-cell>
+          <mat-cell *matCellDef="let n" class="walter"> 
+            {{n.numero}}
+          </mat-cell>  
+      </ng-container>
 
-      <a target='_blank' [href]="archivoUrl(n.archivo_id)">archivo</a>
-    </div>
+      <ng-container matColumnDef="fecha" sticky>
+          <mat-header-cell *matHeaderCellDef class="walter"> Fecha </mat-header-cell>
+          <mat-cell *matCellDef="let n" class="walter"> 
+            {{n.fecha | date}}
+          </mat-cell>  
+      </ng-container>
+
+      <ng-container matColumnDef="tipo" sticky>
+          <mat-header-cell *matHeaderCellDef class="walter"> Tipo </mat-header-cell>
+          <mat-cell *matCellDef="let n" class="walter"> 
+            {{n.tipo}}
+          </mat-cell>  
+      </ng-container>
+
+      <ng-container matColumnDef="emisor" sticky>
+          <mat-header-cell *matHeaderCellDef class="walter"> Emisor </mat-header-cell>
+          <mat-cell *matCellDef="let n" class="walter"> 
+            {{n.emisor}}
+          </mat-cell>  
+      </ng-container>
+
+      <ng-container matColumnDef="detalle" sticky>
+          <mat-header-cell *matHeaderCellDef class="walter"> Detalle </mat-header-cell>
+          <mat-cell *matCellDef="let n" class="walter"> 
+              <button (click)='detalle_norma(n.id)'>detalle1</button>
+              <a target='_blank' [href]='detalle_norma_url(n.id)'>detalle2</a>
+          </mat-cell>  
+      </ng-container>
+
+      <ng-container matColumnDef="archivo" sticky>
+          <mat-header-cell *matHeaderCellDef class="walter"> Archivo </mat-header-cell>
+          <mat-cell *matCellDef="let n" class="walter"> 
+              <a target='_blank' [href]="archivoUrl(n.archivo_id)">archivo</a>
+            </mat-cell>  
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columnas()"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnas();"></mat-row>
+     
+
+    </mat-table>
 
 </div>
