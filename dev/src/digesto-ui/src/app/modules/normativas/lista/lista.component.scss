@@ -31,7 +31,17 @@
   }
 
 
+.busqueda {
+    width: 25%;
+    margin-right: 20px;
+}
 
-  .bloqueFecha {
+.resultados {
+    width: 100%;
+}
 
-  }
+A:link, A:visited { /*aquí todas las respectivas declaraciones*/ }
+A:hover, A:active
+{ 
+text-decoration:none; 
+} 

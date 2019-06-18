@@ -161,7 +161,9 @@ const routes: Routes = [
     MatTooltipModule,
     MatBadgeModule,
     MatAutocompleteModule,
-    DialogoComponent
+    DialogoComponent,
+    MatExpansionModule
+
   ],
   providers: [
     PermisosService,

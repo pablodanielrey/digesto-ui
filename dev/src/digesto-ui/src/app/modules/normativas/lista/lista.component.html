@@ -8,93 +8,112 @@
   <mat-divider></mat-divider>
   
   <div class="pantalla">
+
+    <div class="busqueda">
   
 
-    <mat-card class="bloqueFecha">
-    <form [formGroup]='filters' (ngSubmit)='buscar()'>
-      <mat-form-field appearance="outline">
-        <mat-label>Desde</mat-label>
-        <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
-        <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
-        <mat-datepicker #desde></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Hasta</mat-label>
-        <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
-        <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
-        <mat-datepicker #hasta></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field class="itemFormulario" appearance="outline">
-          <mat-label>Estado</mat-label>
-          <mat-select formControlName='estado' required>
-            <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
-              {{estado}}
-            </mat-option>
-          </mat-select>
-      </mat-form-field>  
-
-      <mat-form-field appearance="outline">
-        <mat-label>Texto</mat-label>
-        <textarea matInput formControlName='texto'></textarea>
-      </mat-form-field>
+        <mat-card>
+        <form [formGroup]='filters' (ngSubmit)='buscar()'>
 
 
 
-      <button type='submit' class="btnGuardar" mat-flat-button color="primary">BUSCAR</button>
-    </form>
-    </mat-card>
+          <mat-form-field appearance="outline">
+            <mat-label>Buscar Normas</mat-label>
+            <input matInput formControlName='texto'>
+            <mat-icon matSuffix>search</mat-icon>
+            <mat-hint>Buscar por número</mat-hint>
 
-    <mat-table [dataSource]="normas$ | async" multiTemplateDataRows>
 
-      <ng-container matColumnDef="numero" sticky>
-          <mat-header-cell *matHeaderCellDef class="walter"> Número </mat-header-cell>
-          <mat-cell *matCellDef="let n" class="walter"> 
-            {{n.numero}}
-          </mat-cell>  
-      </ng-container>
+          </mat-form-field>
 
-      <ng-container matColumnDef="fecha" sticky>
-          <mat-header-cell *matHeaderCellDef class="walter"> Fecha </mat-header-cell>
-          <mat-cell *matCellDef="let n" class="walter"> 
-            {{n.fecha | date}}
-          </mat-cell>  
-      </ng-container>
+          <button type='submit' class="btnGuardar" mat-flat-button color="primary">BUSCAR</button>
 
-      <ng-container matColumnDef="tipo" sticky>
-          <mat-header-cell *matHeaderCellDef class="walter"> Tipo </mat-header-cell>
-          <mat-cell *matCellDef="let n" class="walter"> 
-            {{n.tipo}}
-          </mat-cell>  
-      </ng-container>
+          
+  
 
-      <ng-container matColumnDef="emisor" sticky>
-          <mat-header-cell *matHeaderCellDef class="walter"> Emisor </mat-header-cell>
-          <mat-cell *matCellDef="let n" class="walter"> 
-            {{n.emisor}}
-          </mat-cell>  
-      </ng-container>
+          <mat-form-field appearance="outline">
+            <mat-label>Desde</mat-label>
+            <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
+            <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
+            <mat-datepicker #desde></mat-datepicker>
+          </mat-form-field>
 
-      <ng-container matColumnDef="detalle" sticky>
-          <mat-header-cell *matHeaderCellDef class="walter"> Detalle </mat-header-cell>
-          <mat-cell *matCellDef="let n" class="walter"> 
-              <button (click)='detalle_norma(n.id)'>detalle1</button>
-              <a target='_blank' [href]='detalle_norma_url(n.id)'>detalle2</a>
-          </mat-cell>  
-      </ng-container>
+          <mat-form-field appearance="outline">
+            <mat-label>Hasta</mat-label>
+            <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
+            <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
+            <mat-datepicker #hasta></mat-datepicker>
+          </mat-form-field>
 
-      <ng-container matColumnDef="archivo" sticky>
-          <mat-header-cell *matHeaderCellDef class="walter"> Archivo </mat-header-cell>
-          <mat-cell *matCellDef="let n" class="walter"> 
-              <a target='_blank' [href]="archivoUrl(n.archivo_id)">archivo</a>
-            </mat-cell>  
-      </ng-container>
+          <mat-form-field class="itemFormulario" appearance="outline">
+              <mat-label>Estado</mat-label>
+              <mat-select formControlName='estado' required>
+                <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
+                  {{estado}}
+                </mat-option>
+              </mat-select>
+          </mat-form-field>  
 
-      <mat-header-row *matHeaderRowDef="columnas()"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: columnas();"></mat-row>
-     
 
-    </mat-table>
+
+        </form>
+        </mat-card>
+
+    </div>
+
+    <div class="resultados">
+
+        <mat-table [dataSource]="normas$ | async" multiTemplateDataRows>
+
+          <ng-container matColumnDef="numero" sticky>
+              <mat-header-cell *matHeaderCellDef class="walter"> Número </mat-header-cell>
+              <mat-cell *matCellDef="let n" class="walter"> 
+                {{n.numero}}
+              </mat-cell>  
+          </ng-container>
+
+          <ng-container matColumnDef="fecha" sticky>
+              <mat-header-cell *matHeaderCellDef class="walter"> Fecha </mat-header-cell>
+              <mat-cell *matCellDef="let n" class="walter"> 
+                {{n.fecha | date}}
+              </mat-cell>  
+          </ng-container>
+
+          <ng-container matColumnDef="tipo" sticky>
+              <mat-header-cell *matHeaderCellDef class="walter"> Tipo </mat-header-cell>
+              <mat-cell *matCellDef="let n" class="walter"> 
+                {{n.tipo}}
+              </mat-cell>  
+          </ng-container>
+
+          <ng-container matColumnDef="emisor" sticky>
+              <mat-header-cell *matHeaderCellDef class="walter"> Emisor </mat-header-cell>
+              <mat-cell *matCellDef="let n" class="walter"> 
+                {{n.emisor}}
+              </mat-cell>  
+          </ng-container>
+
+          <ng-container matColumnDef="detalle" sticky>
+              <mat-header-cell *matHeaderCellDef class="walter"> Detalle </mat-header-cell>
+              <mat-cell *matCellDef="let n" class="walter"> 
+                  <button (click)='detalle_norma(n.id)'>detalle1</button>
+                  <a target='_blank' [href]='detalle_norma_url(n.id)'>detalle2</a>
+              </mat-cell>  
+          </ng-container>
+
+          <ng-container matColumnDef="archivo" sticky>
+              <mat-header-cell *matHeaderCellDef class="walter"> Archivo </mat-header-cell>
+              <mat-cell *matCellDef="let n" class="walter"> 
+                  <a mat-button target='_blank' [href]="archivoUrl(n.archivo_id)"><i class="material-icons-outlined"> picture_as_pdf </i></a>
+                </mat-cell>  
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="columnas()"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnas();"></mat-row>
+        
+
+        </mat-table>
+
+  </div>
 
 </div>
