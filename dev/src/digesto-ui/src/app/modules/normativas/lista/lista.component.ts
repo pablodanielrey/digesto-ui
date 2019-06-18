@@ -30,7 +30,8 @@ export class ListaComponent implements OnInit, OnDestroy {
     let mes_milis = 1000 * 60 * 60 * 24 * 30;
     this.filters = this.fb.group({
       'desde':[new Date((new Date()).getTime() - mes_milis)],
-      'hasta':[new Date()]
+      'hasta':[new Date()],
+      'texto':['']
     });
 
     this.normas$ = this.buscar$.pipe(
