@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DigestoService } from 'src/app/shared/services/digesto.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { mergeMap, switchMap } from 'rxjs/operators';
 import { NavegarService } from 'src/app/core/navegar.service';
@@ -21,6 +21,8 @@ export class ListaComponent implements OnInit, OnDestroy {
   columnas_ = ['numero','fecha','tipo','emisor','detalle','archivo'];
   filters: FormGroup = null;
   normas$: Observable<any[]> = null;
+  estados$: Observable<any[]> = null;
+
   buscar$ = new Subject<void>();
 
   columnas() {
@@ -36,7 +38,8 @@ export class ListaComponent implements OnInit, OnDestroy {
     this.filters = this.fb.group({
       'desde':[new Date((new Date()).getTime() - mes_milis)],
       'hasta':[new Date()],
-      'texto':['']
+      'texto':[''],
+      'estado':['Todas']
     });
 
     this.normas$ = this.buscar$.pipe(
@@ -46,6 +49,8 @@ export class ListaComponent implements OnInit, OnDestroy {
         return this.service.obtener_normas(desde, hasta);
       })
     )
+
+    this.estados$ = of(['Todas','Pendientes','Aprobadas']);
   }
 
   get desde() : Date {

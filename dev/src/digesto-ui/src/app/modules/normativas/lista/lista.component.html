@@ -26,6 +26,15 @@
         <mat-datepicker #hasta></mat-datepicker>
       </mat-form-field>
 
+      <mat-form-field class="itemFormulario" appearance="outline">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName='estado' required>
+            <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
+              {{estado}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>  
+
       <mat-form-field appearance="outline">
         <mat-label>Texto</mat-label>
         <textarea matInput formControlName='texto'></textarea>
