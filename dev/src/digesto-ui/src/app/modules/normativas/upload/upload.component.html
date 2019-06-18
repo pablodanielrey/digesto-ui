@@ -1,57 +1,85 @@
+<mat-toolbar-row>
+  <button class="btnVolver" mat-button color="primary" (click)='volver()'> <mat-icon>undo </mat-icon> VOLVER </button>
+  <button class="btnVolverCel" mat-icon-button color="primary" (click)='volver()'> <mat-icon>undo</mat-icon> </button>
+  <span class="ruta">&nbsp; Nueva Norma</span>
 
-<form [formGroup]='form' (ngSubmit)='subir()'>
+</mat-toolbar-row>
 
-  <mat-form-field>
-    <mat-label>numero</mat-label>
-    <input matInput formControlName='numero' required>
-  </mat-form-field>
+<mat-divider></mat-divider>
 
-  <mat-form-field>
-    <mat-label>extracto</mat-label>
-    <textarea matInput formControlName='extracto'></textarea>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Fecha" fromControlName='fecha' readonly required>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+<div class="pantalla">
 
 
-  <!--
-  <div [formGroup]='tipo'>
-    <mat-checkbox formControlName='disposicion'>Disposición</mat-checkbox>
-    <mat-checkbox formControlName='ordenanza'>Ordenanza</mat-checkbox>
-    <mat-checkbox formControlName='resolucion'>Resolución</mat-checkbox>
-  </div>
-  -->
-  <mat-form-field>
-    <mat-label>Tipo</mat-label>
-    <mat-select formControlName='tipo' required>
-      <mat-option *ngFor="let tipo of (tipos$ | async)" value='{{tipo.id}}'>
-        {{tipo.tipo}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>  
 
-  <mat-form-field>
-    <mat-label>Emisor</mat-label>
-    <mat-select formControlName='emisor' required>
-      <mat-option *ngFor="let emisor of (emisores$ | async)" value='{{emisor.id}}'>
-        {{emisor.nombre}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>  
-  
-  <div [formGroup]='estado'>
-    <mat-checkbox formControlName='aprobado'>Aprobado</mat-checkbox>
-    <mat-checkbox formControlName='pendiente'>Pendiente</mat-checkbox>
-  </div>
-  
-  <mat-form-field>
-    <mat-label>Normativa</mat-label>
-    <adjuntar-archivos formControlName='archivo' required></adjuntar-archivos>
-  </mat-form-field>
+    <form [formGroup]='form' (ngSubmit)='subir()' class="formulario">
 
-  <button matButton type='submit'>Aceptar</button>
-</form>
+        <div class="bloque">
+
+            <mat-form-field class="itemFormulario" appearance="outline">
+              <mat-label>Número de Norma</mat-label>
+              <input matInput formControlName='numero' required>
+            </mat-form-field>
+
+            <mat-form-field class="itemFormulario" appearance="outline">
+              <mat-label>Extracto</mat-label>
+              <textarea matInput formControlName='extracto'></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Fecha</mat-label>
+
+              <input matInput [matDatepicker]="picker" placeholder="Fecha" fromControlName='fecha' readonly required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Normativa</mat-label>
+                <adjuntar-archivos formControlName='archivo' required></adjuntar-archivos>
+            </mat-form-field>
+
+        </div>
+        
+        <div class="bloque">
+
+            <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName='tipo' required>
+                  <mat-option *ngFor="let tipo of (tipos$ | async)" value='{{tipo.id}}'>
+                    {{tipo.tipo}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>  
+        
+              <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Emisor</mat-label>
+                <mat-select formControlName='emisor' required>
+                  <mat-option *ngFor="let emisor of (emisores$ | async)" value='{{emisor.id}}'>
+                    {{emisor.nombre}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>  
+              
+              <div [formGroup]='estado' class="estados">
+                <div><mat-checkbox formControlName='aprobado'>Aprobado</mat-checkbox></div>
+                <div><mat-checkbox formControlName='pendiente'>Pendiente</mat-checkbox></div>
+              </div>
+              
+
+        </div>
+
+
+        <div class="bloqueAcciones">
+
+            <button mat-Button type='submit' class="btnGuardar" mat-flat-button color="primary">CREAR NORMA</button>
+
+
+        </div>
+
+
+
+
+    </form>
+
+
+</div>

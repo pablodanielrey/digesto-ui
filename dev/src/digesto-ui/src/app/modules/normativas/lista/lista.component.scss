@@ -1,0 +1,37 @@
+.pantalla {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    // @media screen and (max-width: 768px) {
+    //     flex-direction: column;
+    // }
+}
+
+
+
+.btnVolver {
+    display: inline;
+    @media screen and (max-width: 768px) {
+      display: none;
+  }
+  }
+  
+  .btnVolverCel {
+    display: none;
+    @media screen and (max-width: 768px) {
+      display: inline;
+  }
+  }
+  
+  .ruta {
+    opacity: .5;
+    @media screen and (max-width: 768px) {
+      font-size: 12px;
+    }
+  }
+
+
+
+  .bloqueFecha {
+
+  }

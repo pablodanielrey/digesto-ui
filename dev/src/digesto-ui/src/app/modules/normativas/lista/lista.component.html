@@ -1,29 +1,46 @@
-
-<form [formGroup]='filters' (ngSubmit)='buscar()'>
-  <mat-form-field>
-    <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
-    <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
-    <mat-datepicker #desde></mat-datepicker>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
-    <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
-    <mat-datepicker #hasta></mat-datepicker>
-  </mat-form-field>
-
-  <button type='submit'>Buscar</button>
-</form>
-
-<div *ngFor='let n of (normas$ | async)'>
-  {{n.numero}}
-  {{n.fecha | date}}
-  {{n.tipo}}
-  {{n.emisor}}
+<mat-toolbar-row>
+    <button class="btnVolver" mat-button color="primary" (click)='volver()'> <mat-icon>undo </mat-icon> VOLVER </button>
+    <button class="btnVolverCel" mat-icon-button color="primary" (click)='volver()'> <mat-icon>undo</mat-icon> </button>
+    <span class="ruta">&nbsp; Buscar Normas</span>
   
-  <button (click)='detalle_norma(n.id)'>detalle1</button>
+  </mat-toolbar-row>
+  
+  <mat-divider></mat-divider>
+  
+  <div class="pantalla">
+  
 
-  <a target='_blank' [href]='detalle_norma_url(n.id)'>detalle2</a>
+    <mat-card class="bloqueFecha">
+    <form [formGroup]='filters' (ngSubmit)='buscar()'>
+      <mat-form-field appearance="outline">
+        <mat-label>Desde</mat-label>
+        <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
+        <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
+        <mat-datepicker #desde></mat-datepicker>
+      </mat-form-field>
 
-  <a target='_blank' [href]="archivoUrl(n.archivo_id)">archivo</a>
+      <mat-form-field appearance="outline">
+        <mat-label>Hasta</mat-label>
+        <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
+        <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
+        <mat-datepicker #hasta></mat-datepicker>
+      </mat-form-field>
+
+      <button type='submit' class="btnGuardar" mat-flat-button color="primary">BUSCAR</button>
+    </form>
+    </mat-card>
+
+    <div *ngFor='let n of (normas$ | async)'>
+      {{n.numero}}
+      {{n.fecha | date}}
+      {{n.tipo}}
+      {{n.emisor}}
+      
+      <button (click)='detalle_norma(n.id)'>detalle1</button>
+
+      <a target='_blank' [href]='detalle_norma_url(n.id)'>detalle2</a>
+
+      <a target='_blank' [href]="archivoUrl(n.archivo_id)">archivo</a>
+    </div>
+
 </div>
