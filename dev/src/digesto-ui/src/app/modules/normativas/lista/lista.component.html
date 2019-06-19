@@ -10,53 +10,43 @@
   <div class="pantalla">
 
     <div class="busqueda">
-  
 
         <mat-card>
-        <form [formGroup]='filters' (ngSubmit)='buscar()'>
+          <form [formGroup]='filters' (ngSubmit)='buscar()'>
 
+            <mat-form-field appearance="outline">
+              <mat-label>Buscar Normas</mat-label>
+              <input matInput formControlName='texto'>
+              <mat-icon matSuffix>search</mat-icon>
+              <mat-hint>Buscar por número</mat-hint>
+            </mat-form-field>
 
+            <button type='submit' class="btnGuardar" mat-flat-button color="primary">BUSCAR</button>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Buscar Normas</mat-label>
-            <input matInput formControlName='texto'>
-            <mat-icon matSuffix>search</mat-icon>
-            <mat-hint>Buscar por número</mat-hint>
+            <mat-form-field appearance="outline">
+              <mat-label>Desde</mat-label>
+              <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
+              <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
+              <mat-datepicker #desde></mat-datepicker>
+            </mat-form-field>
 
+            <mat-form-field appearance="outline">
+              <mat-label>Hasta</mat-label>
+              <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
+              <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
+              <mat-datepicker #hasta></mat-datepicker>
+            </mat-form-field>
 
-          </mat-form-field>
+            <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName='estado' required>
+                  <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
+                    {{estado}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>  
 
-          <button type='submit' class="btnGuardar" mat-flat-button color="primary">BUSCAR</button>
-
-          
-  
-
-          <mat-form-field appearance="outline">
-            <mat-label>Desde</mat-label>
-            <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
-            <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
-            <mat-datepicker #desde></mat-datepicker>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Hasta</mat-label>
-            <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
-            <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
-            <mat-datepicker #hasta></mat-datepicker>
-          </mat-form-field>
-
-          <mat-form-field class="itemFormulario" appearance="outline">
-              <mat-label>Estado</mat-label>
-              <mat-select formControlName='estado' required>
-                <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
-                  {{estado}}
-                </mat-option>
-              </mat-select>
-          </mat-form-field>  
-
-
-
-        </form>
+          </form>
         </mat-card>
 
     </div>
@@ -104,7 +94,7 @@
           <ng-container matColumnDef="archivo" sticky>
               <mat-header-cell *matHeaderCellDef class="walter"> Archivo </mat-header-cell>
               <mat-cell *matCellDef="let n" class="walter"> 
-                  <a mat-button target='_blank' [href]="archivoUrl(n.archivo_id)"><i class="material-icons-outlined"> picture_as_pdf </i></a>
+                  <a mat-button target='_blank' [href]="archivoUrl(n.archivo_id)"><i class="material-icons-outlined"> ver </i></a>
                 </mat-cell>  
           </ng-container>
 

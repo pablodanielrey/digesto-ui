@@ -38,7 +38,7 @@ export class DigestoService {
     return req;
   }
 
-  obtener_normas(desde:Date, hasta:Date): Observable<any[]> {
+  obtener_normas(desde:Date, hasta:Date, estado:string, texto:string): Observable<any[]> {
     let url = `${API_URL}/norma`;
     /*
     let params = new HttpParams({
@@ -49,7 +49,9 @@ export class DigestoService {
     });*/
     let params = {
       desde: desde.toISOString(),
-      hasta: hasta.toISOString()
+      hasta: hasta.toISOString(),
+      estado: estado,
+      texto: texto
     }
     let req = this.http.get(url, { params: params }).pipe(
       tap(v => console.log(v)),

@@ -46,11 +46,21 @@ export class ListaComponent implements OnInit, OnDestroy {
       switchMap( _ => {
         let desde = this.desde;
         let hasta = this.hasta;
-        return this.service.obtener_normas(desde, hasta);
+        let estado = this.estado;
+        let texto = this.texto;
+        return this.service.obtener_normas(desde, hasta, estado, texto);
       })
     )
 
     this.estados$ = of(['Todas','Pendientes','Aprobadas']);
+  }
+
+  get texto(): string {
+    return this.filters.get('texto').value;
+  }
+
+  get estado(): string {
+    return this.filters.get('estado').value;
   }
 
   get desde() : Date {
