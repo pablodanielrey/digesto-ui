@@ -48,31 +48,39 @@
 
   <div class="resultados">
 
-      <mat-table [dataSource]="normas$ | async" multiTemplateDataRows>
+      <!-- ejemplo de paginación - falta chequear bien pero es algo que se me ocurrió sin internet rápido para que no mate la vista -->
+      <mat-card>
+        ({{cantidad$ | async}})
+        <button mat-button (click)='anterior_pagina()'><<</button>
+        <button mat-button (click)='inicial_pagina()'>{{pagina}}</button>
+        <button mat-button (click)='siguiente_pagina()'>>></button>
+      </mat-card>
+
+      <mat-table matSort [dataSource]="pagina$ | async" multiTemplateDataRows>
 
         <ng-container matColumnDef="numero" sticky>
-            <mat-header-cell *matHeaderCellDef class="walter"> Número </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="walter"> Número </mat-header-cell>
             <mat-cell *matCellDef="let n" class="walter"> 
               {{n.numero}}
             </mat-cell>  
         </ng-container>
 
         <ng-container matColumnDef="fecha" sticky>
-            <mat-header-cell *matHeaderCellDef class="walter"> Fecha </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="walter"> Fecha </mat-header-cell>
             <mat-cell *matCellDef="let n" class="walter"> 
               {{n.fecha | date}}
             </mat-cell>  
         </ng-container>
 
         <ng-container matColumnDef="tipo" sticky>
-            <mat-header-cell *matHeaderCellDef class="walter"> Tipo </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="walter"> Tipo </mat-header-cell>
             <mat-cell *matCellDef="let n" class="walter"> 
               {{n.tipo}}
             </mat-cell>  
         </ng-container>
 
         <ng-container matColumnDef="emisor" sticky>
-            <mat-header-cell *matHeaderCellDef class="walter"> Emisor </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="walter"> Emisor </mat-header-cell>
             <mat-cell *matCellDef="let n" class="walter"> 
               {{n.emisor}}
             </mat-cell>  
