@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'loader', component: ListaPublicaComponent }, 
   {
      path:'sistema',
-     //canActivate: [OidpGuard],
+     canActivate: [OidpGuard],
      component: SistemaComponent,
      children: [
       { path: 'inicio', component: InicioComponent },
