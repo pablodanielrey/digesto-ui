@@ -5,6 +5,10 @@
   <button mat-stroked-button (click)="acceder()" color="secundary" class="btnAcceder">ACCEDER</button>
 </mat-toolbar>
 
+<!-- <div class="contenedorBusqueda">
+
+</div> -->
+
 
 
       <!-- ejemplo de paginación - falta chequear bien pero es algo que se me ocurrió sin internet rápido para que no mate la vista -->
@@ -27,7 +31,7 @@
         <form [formGroup]='filters' (ngSubmit)='buscar()'>
 
           <div class="contenedorInput">
-              <mat-form-field appearance="outline">
+              <mat-form-field class="itemFormulario" appearance="outline">
                   <mat-label>Buscar Normas</mat-label>
                   <input matInput formControlName='texto'>
                   <!-- <mat-icon matSuffix>search</mat-icon> -->
