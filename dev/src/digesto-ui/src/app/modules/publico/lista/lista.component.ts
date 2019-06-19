@@ -1,18 +1,18 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { DigestoService } from 'src/app/shared/services/digesto.service';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, Subject, of, BehaviorSubject, combineLatest } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { mergeMap, switchMap, map } from 'rxjs/operators';
+import { mergeMap, switchMap, map, tap } from 'rxjs/operators';
 import { NavegarService } from 'src/app/core/navegar.service';
 import { Router } from '@angular/router';
-import { MAT_SORT_HEADER_INTL_PROVIDER } from '@angular/material';
+import { MAT_SORT_HEADER_INTL_PROVIDER, PageEvent, Sort, MatSort, MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-lista',
   templateUrl: './lista.component.html',
   styleUrls: ['./lista.component.scss']
 })
-export class ListaComponent implements OnInit, OnDestroy {
+export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subscriptions = [];
 
@@ -20,39 +20,23 @@ export class ListaComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  columnas_ = ['fecha','numero','tipo','emisor','archivo'];
+  @ViewChild(MatSort, null) sort: MatSort;
+  @ViewChild(MatPaginator, null) paginator: MatPaginator;
+
+  columnas_ = ['numero', 'fecha', 'tipo', 'emisor', 'archivo'];
   filters: FormGroup = null;
   normas$: Observable<any[]> = null;
-  cantidad$: Observable<number> = null;
+  normas_ordenadas$: Observable<any[]> = null;
+  normas_paginadas$: Observable<any[]> = null;
+
   estados$: Observable<any[]> = null;
   mostrarFiltros:boolean=false;
 
-  /////////////////////////////
+  tamano: number = 10;
 
-  pagina: number = 0;
-  pagina$: Observable<any[]> = null;
-
-  inicial_pagina() {
-    this.pagina = 0;
-    this.buscar$.next();
-  }
-
-  siguiente_pagina() {
-    this.pagina = this.pagina + 1;
-    this.buscar$.next();
-  }
-
-  anterior_pagina() {
-    this.pagina = this.pagina - 1;
-    if (this.pagina < 0) {
-      this.pagina = 0;
-    }
-    this.buscar$.next();
-  }
-
-  /////////////////
-  
-  buscar$ = new Subject<void>();
+  ordenar$ = new BehaviorSubject<Sort>({active:'numero',direction:''});
+  pagina$ = new BehaviorSubject<PageEvent>({length: 0, pageIndex: 0, pageSize: 10});
+  buscar$ = new BehaviorSubject<void>(null);
 
   columnas() {
     return this.columnas_;
@@ -79,24 +63,40 @@ export class ListaComponent implements OnInit, OnDestroy {
       })
     )
 
+    this.normas_ordenadas$ = combineLatest(this.ordenar$, this.buscar$).pipe(
+      tap(v => console.log(v)),
+      switchMap(valores => {
+        return this.normas$.pipe(
+          tap(ns => this.tamano = ns.length),
+          map(ns => { ns.forEach(e => e.fecha = new Date(e.fecha)); return ns; }),
+          map(ns => ns.sort((a,b) => {
+            let s = valores[0];
+            console.log(s);
+            if (s['active'] == 'numero') {
+              let n1 = (s['direction'] == 'desc') ? a : b;
+              let n2 = (s['direction'] == 'desc') ? b : a;
+              let n =  n1.numero - n2.numero;
+              return (n == 0) ? n1.fecha.getTime() - n2.fecha.getTime() : n;
+            }
+            return (a.fecha.getTime() + a.numero) - (b.fecha.getTime() + b.numero);
+          }))
+        );
+      }),
+      tap(v => console.log(v))      
+    )
+    
+    this.normas_paginadas$ = combineLatest(this.pagina$, this.normas_ordenadas$).pipe(
+      map(valores => {
+        let pagina = valores[0];
+        let normas = valores[1];
+        let i = pagina.pageIndex * pagina.pageSize;
+        let f = i + pagina.pageSize;
+        return normas.slice(i,f);
+      })
+    )    
+
     this.estados$ = of(['Todas','Pendientes','Aprobadas']);
 
-    this.pagina$ = this.normas$.pipe(
-      map(ns => ns.sort((a,b) => {
-        let a1 = new Date(a.fecha).getTime() + a.numero;
-        let b1 = new Date(b.fecha).getTime() + b.numero;
-        return a1 - b1;
-      })),
-      map(ns => {
-        let i = this.pagina * 10;
-        let f = i + 10;
-        return ns.slice(i,f);
-      })
-    )
-
-    this.cantidad$ = this.normas$.pipe(
-      map(ns => ns.length)
-    )
   }
 
   get texto(): string {
@@ -112,8 +112,21 @@ export class ListaComponent implements OnInit, OnDestroy {
   }
 
   buscar() {
-    this.pagina = 0;
     this.buscar$.next();
+  }
+
+  ngAfterViewInit() {
+    this.sort.sortChange.pipe(
+      tap(v => console.log(v))
+    ).subscribe(s => {
+      this.ordenar$.next(s);
+    });
+
+    this.paginator.page.pipe(
+      tap(v => console.log(v)),
+    ).subscribe(p => {
+      this.pagina$.next(p);
+    })
   }
 
   archivoUrl(aid) {

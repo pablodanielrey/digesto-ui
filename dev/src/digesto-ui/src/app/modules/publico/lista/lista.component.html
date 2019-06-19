@@ -9,18 +9,6 @@
 
 </div> -->
 
-
-
-      <!-- ejemplo de paginación - falta chequear bien pero es algo que se me ocurrió sin internet rápido para que no mate la vista -->
-      <!-- 
-      <mat-card>
-        ({{cantidad$ | async}})
-        <button mat-button (click)='anterior_pagina()'><<</button>
-        <button mat-button (click)='inicial_pagina()'>{{pagina}}</button>
-        <button mat-button (click)='siguiente_pagina()'>>></button>
-      </mat-card>
-    -->
-
 <mat-divider></mat-divider>
 
 <div class="pantalla">
@@ -58,19 +46,7 @@
                   <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
                   <mat-datepicker #hasta></mat-datepicker>
                 </mat-form-field>
-    
-                <mat-form-field class="itemFormulario" appearance="outline">
-                    <mat-label>Estado</mat-label>
-                    <mat-select formControlName='estado' required>
-                      <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
-                        {{estado}}
-                      </mat-option>
-                    </mat-select>
-                </mat-form-field> 
-
           </div>
-
-
 
         </form>
       </mat-card>
@@ -79,10 +55,10 @@
 
   <div class="resultados">
 
-      <mat-table [dataSource]="normas$ | async" multiTemplateDataRows>
+      <mat-table matSort [dataSource]="normas_paginadas$ | async" multiTemplateDataRows>
 
         <ng-container matColumnDef="numero" >
-            <mat-header-cell *matHeaderCellDef > Número </mat-header-cell>
+            <mat-header-cell mat-sort-header *matHeaderCellDef > Número </mat-header-cell>
             <mat-cell *matCellDef="let n" > 
               {{n.numero}}
             </mat-cell>  
@@ -138,5 +114,7 @@
       
 
   </mat-table>
+
+  <mat-paginator [length]="tamano" [pageSize]="10" [pageSizeOptions]="[10, 50]"></mat-paginator>
 
 </div>
