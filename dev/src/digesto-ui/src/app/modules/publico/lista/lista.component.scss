@@ -1,0 +1,63 @@
+.pantalla {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    // @media screen and (max-width: 768px) {
+    //     flex-direction: column;
+    // }
+}
+
+
+
+.btnVolver {
+    display: inline;
+    @media screen and (max-width: 768px) {
+      display: none;
+  }
+  }
+  
+  .btnVolverCel {
+    display: none;
+    @media screen and (max-width: 768px) {
+      display: inline;
+  }
+  }
+  
+  .ruta {
+    opacity: .5;
+    @media screen and (max-width: 768px) {
+      font-size: 12px;
+    }
+  }
+
+
+.busqueda {
+    width: 30%;
+    margin-right: 20px;
+}
+
+.resultados {
+    width: 100%;
+}
+
+.contenedorInput {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+.btnGuardar {
+    // padding: 10px 0 10px 0;
+    height: 60px;
+    margin-top: 4px;
+}
+
+.itemFormulario {
+    width: 100%;
+}
+
+.btnFiltros {
+    margin: -20px 0 10px 0;
+    opacity: 0.7;
+}

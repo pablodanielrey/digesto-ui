@@ -20,10 +20,12 @@ export class ListaComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  columnas_ = ['numero','fecha','tipo','emisor','archivo'];
+  columnas_ = ['fecha','numero','tipo','emisor','archivo'];
   filters: FormGroup = null;
   normas$: Observable<any[]> = null;
   cantidad$: Observable<number> = null;
+  estados$: Observable<any[]> = null;
+  mostrarFiltros:boolean=false;
 
   /////////////////////////////
 
@@ -76,6 +78,8 @@ export class ListaComponent implements OnInit, OnDestroy {
         return this.service.obtener_normas(desde, hasta, 'Aprobadas', texto);
       })
     )
+
+    this.estados$ = of(['Todas','Pendientes','Aprobadas']);
 
     this.pagina$ = this.normas$.pipe(
       map(ns => ns.sort((a,b) => {
