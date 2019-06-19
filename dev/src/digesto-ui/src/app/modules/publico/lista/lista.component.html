@@ -1,12 +1,10 @@
-<mat-toolbar-row>
-  <button class="btnVolver" mat-button color="primary" (click)='volver()'> <mat-icon>undo </mat-icon> VOLVER </button>
-  <button class="btnVolverCel" mat-icon-button color="primary" (click)='volver()'> <mat-icon>undo</mat-icon> </button>
-  <span class="ruta">&nbsp; Buscar Normas</span>
 
-  <button mat-button (click)="acceder()" color="">ACCEDER</button>
+<mat-toolbar class="toolbar">
+    <div>DIGESTO</div>
 
+  <button mat-stroked-button (click)="acceder()" color="secundary" class="btnAcceder">ACCEDER</button>
+</mat-toolbar>
 
-</mat-toolbar-row>
 
 
       <!-- ejemplo de paginación - falta chequear bien pero es algo que se me ocurrió sin internet rápido para que no mate la vista -->
