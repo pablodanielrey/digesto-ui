@@ -17,6 +17,8 @@ import { UploadComponent } from './modules/normativas/upload/upload.component';
 import { ListaComponent } from './modules/normativas/lista/lista.component';
 import { DetalleComponent } from './modules/normativas/detalle/detalle.component';
 
+import { ListaComponent as ListaPublicaComponent } from './modules/publico/lista/lista.component';
+
 @NgModule({
   declarations: [
     AdjuntarArchivosComponent,
@@ -24,7 +26,8 @@ import { DetalleComponent } from './modules/normativas/detalle/detalle.component
     InicioComponent,
     UploadComponent,
     ListaComponent,
-    DetalleComponent
+    DetalleComponent,
+    ListaPublicaComponent
   ],
   imports: [
     BrowserModule,

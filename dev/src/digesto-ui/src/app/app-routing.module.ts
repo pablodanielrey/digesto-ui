@@ -11,6 +11,7 @@ import { UploadComponent } from './modules/normativas/upload/upload.component';
 import { ListaComponent } from './modules/normativas/lista/lista.component';
 import { DetalleComponent } from './modules/normativas/detalle/detalle.component';
 
+import { ListaComponent as ListaPublicaComponent } from './modules/publico/lista/lista.component';
 
 
 
@@ -18,7 +19,8 @@ const routes: Routes = [
 
   { path: 'debug', component: DebugComponent },
   { path: 'oauth2', component: Oauth2Component }, 
-  { path: 'loader', component: LoaderComponent }, 
+  //{ path: 'loader', component: LoaderComponent }, 
+  { path: 'loader', component: ListaPublicaComponent }, 
   {
      path:'sistema',
      //canActivate: [OidpGuard],
