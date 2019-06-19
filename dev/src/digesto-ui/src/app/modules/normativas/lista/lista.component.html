@@ -14,37 +14,47 @@
         <mat-card>
           <form [formGroup]='filters' (ngSubmit)='buscar()'>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Buscar Normas</mat-label>
-              <input matInput formControlName='texto'>
-              <mat-icon matSuffix>search</mat-icon>
-              <mat-hint>Buscar por número</mat-hint>
-            </mat-form-field>
+            <div class="contenedorInput">
+                <mat-form-field appearance="outline">
+                    <mat-label>Buscar Normas</mat-label>
+                    <input matInput formControlName='texto'>
+                    <!-- <mat-icon matSuffix>search</mat-icon> -->
+                  </mat-form-field>
+      
+                  <button type='submit' class="btnGuardar" mat-flat-button color="primary">   
+                      <mat-icon matSuffix>search</mat-icon>
+                  </button>
+            </div>
 
-            <button type='submit' class="btnGuardar" mat-flat-button color="primary">BUSCAR</button>
+            <button type="button" mat-button class="btnFiltros" (click)="mostrarFiltros = !mostrarFiltros"> Filtros <i class="material-icons">keyboard_arrow_down</i></button>
+            <div *ngIf="mostrarFiltros">
 
-            <mat-form-field appearance="outline">
-              <mat-label>Desde</mat-label>
-              <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
-              <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
-              <mat-datepicker #desde></mat-datepicker>
-            </mat-form-field>
+                <mat-form-field class="itemFormulario" appearance="outline">
+                    <mat-label>Desde</mat-label>
+                    <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
+                    <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
+                    <mat-datepicker #desde></mat-datepicker>
+                  </mat-form-field>
+      
+                  <mat-form-field class="itemFormulario" appearance="outline">
+                    <mat-label>Hasta</mat-label>
+                    <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
+                    <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
+                    <mat-datepicker #hasta></mat-datepicker>
+                  </mat-form-field>
+      
+                  <mat-form-field class="itemFormulario" appearance="outline">
+                      <mat-label>Estado</mat-label>
+                      <mat-select formControlName='estado' required>
+                        <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
+                          {{estado}}
+                        </mat-option>
+                      </mat-select>
+                  </mat-form-field> 
 
-            <mat-form-field appearance="outline">
-              <mat-label>Hasta</mat-label>
-              <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
-              <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
-              <mat-datepicker #hasta></mat-datepicker>
-            </mat-form-field>
+            </div>
 
-            <mat-form-field class="itemFormulario" appearance="outline">
-                <mat-label>Estado</mat-label>
-                <mat-select formControlName='estado' required>
-                  <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
-                    {{estado}}
-                  </mat-option>
-                </mat-select>
-            </mat-form-field>  
+ 
 
           </form>
         </mat-card>
@@ -55,47 +65,56 @@
 
         <mat-table [dataSource]="normas$ | async" multiTemplateDataRows>
 
-          <ng-container matColumnDef="numero" sticky>
-              <mat-header-cell *matHeaderCellDef class="walter"> Número </mat-header-cell>
-              <mat-cell *matCellDef="let n" class="walter"> 
+          <ng-container matColumnDef="numero" >
+              <mat-header-cell *matHeaderCellDef > Número </mat-header-cell>
+              <mat-cell *matCellDef="let n" > 
                 {{n.numero}}
               </mat-cell>  
           </ng-container>
 
-          <ng-container matColumnDef="fecha" sticky>
-              <mat-header-cell *matHeaderCellDef class="walter"> Fecha </mat-header-cell>
-              <mat-cell *matCellDef="let n" class="walter"> 
+          <ng-container matColumnDef="fecha" >
+              <mat-header-cell *matHeaderCellDef > Fecha </mat-header-cell>
+              <mat-cell *matCellDef="let n" > 
                 {{n.fecha | date}}
               </mat-cell>  
           </ng-container>
 
-          <ng-container matColumnDef="tipo" sticky>
-              <mat-header-cell *matHeaderCellDef class="walter"> Tipo </mat-header-cell>
-              <mat-cell *matCellDef="let n" class="walter"> 
+          <ng-container matColumnDef="tipo" >
+              <mat-header-cell *matHeaderCellDef > Tipo </mat-header-cell>
+              <mat-cell *matCellDef="let n"> 
                 {{n.tipo}}
               </mat-cell>  
           </ng-container>
 
-          <ng-container matColumnDef="emisor" sticky>
-              <mat-header-cell *matHeaderCellDef class="walter"> Emisor </mat-header-cell>
-              <mat-cell *matCellDef="let n" class="walter"> 
+          <ng-container matColumnDef="emisor" >
+              <mat-header-cell *matHeaderCellDef> Emisor </mat-header-cell>
+              <mat-cell *matCellDef="let n"> 
                 {{n.emisor}}
               </mat-cell>  
           </ng-container>
 
-          <ng-container matColumnDef="detalle" sticky>
-              <mat-header-cell *matHeaderCellDef class="walter"> Detalle </mat-header-cell>
-              <mat-cell *matCellDef="let n" class="walter"> 
-                  <button (click)='detalle_norma(n.id)'>detalle1</button>
-                  <a target='_blank' [href]='detalle_norma_url(n.id)'>detalle2</a>
+          <ng-container matColumnDef="detalle" >
+              <mat-header-cell *matHeaderCellDef> Detalle </mat-header-cell>
+              <mat-cell *matCellDef="let n"> 
+                  <button (click)='detalle_norma(n.id)' mat-icon-button><mat-icon>zoom_in</mat-icon></button>
+                  <a mat-button target='_blank' [href]='detalle_norma_url(n.id)'><i class="material-icons-outlined">zoom_in</i></a>
               </mat-cell>  
           </ng-container>
 
-          <ng-container matColumnDef="archivo" sticky>
-              <mat-header-cell *matHeaderCellDef class="walter"> Archivo </mat-header-cell>
-              <mat-cell *matCellDef="let n" class="walter"> 
-                  <a mat-button target='_blank' [href]="archivoUrl(n.archivo_id)"><i class="material-icons-outlined"> ver </i></a>
-                </mat-cell>  
+          <ng-container matColumnDef="archivo">
+              <mat-header-cell *matHeaderCellDef> Archivo </mat-header-cell>
+              <mat-cell *matCellDef="let n" > 
+                  <a mat-button color="primary" target='_blank' [href]="archivoUrl(n.archivo_id)"><i class="material-icons-outlined">picture_as_pdf </i></a>
+              </mat-cell>  
+          </ng-container>
+
+          <ng-container matColumnDef="visibilidad">
+              <mat-header-cell *matHeaderCellDef> Visibilidad </mat-header-cell>
+              <mat-cell *matCellDef="let n" > 
+                  <button mat-button color="primary" (click)="visible = !visible" matTooltip="Cambiar Estado"  matTooltipPosition="before">
+                      <mat-icon class="material-icons-outlined">{{visible ? 'visibility_off' : 'visibility'}} </mat-icon> {{visible ? 'Privada' : 'Pública'}}
+                      </button>
+              </mat-cell>  
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="columnas()"></mat-header-row>
@@ -104,6 +123,6 @@
 
         </mat-table>
 
-  </div>
+    </div>
 
 </div>

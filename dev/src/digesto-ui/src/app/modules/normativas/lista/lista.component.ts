@@ -18,10 +18,11 @@ export class ListaComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  columnas_ = ['numero','fecha','tipo','emisor','detalle','archivo'];
+  columnas_ = ['numero','tipo','fecha','emisor','archivo','visibilidad'];
   filters: FormGroup = null;
   normas$: Observable<any[]> = null;
   estados$: Observable<any[]> = null;
+  mostrarFiltros:boolean=false;
 
   buscar$ = new Subject<void>();
 
@@ -96,6 +97,8 @@ export class ListaComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
   }
+
+
 
 
 
