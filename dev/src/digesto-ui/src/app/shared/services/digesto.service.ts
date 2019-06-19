@@ -81,4 +81,21 @@ export class DigestoService {
     return `${API_URL}/archivo/${archivo_id}`;
   }
 
+
+  cambiar_visibilidad(nid:string, visible:boolean): Observable<any> {
+    let url = `${API_URL}/norma/${nid}`;
+    /*
+    let params = new HttpParams({
+      fromObject: {
+        desde: desde.toISOString(),
+        hasta: hasta.toISOString()
+      }
+    });*/
+    let body = {
+      visible: visible
+    }
+    let req = this.http.put(url, body=body);
+    return req;
+  }
+
 }

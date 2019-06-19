@@ -111,8 +111,8 @@
           <ng-container matColumnDef="visibilidad">
               <mat-header-cell *matHeaderCellDef> Visibilidad </mat-header-cell>
               <mat-cell *matCellDef="let n" > 
-                  <button mat-button color="primary" (click)="visible = !visible" matTooltip="Cambiar Estado"  matTooltipPosition="before">
-                      <mat-icon class="material-icons-outlined">{{visible ? 'visibility_off' : 'visibility'}} </mat-icon> {{visible ? 'Privada' : 'Pública'}}
+                  <button mat-button color="primary" (click)="cambiar_visibilidad(n)" matTooltip="Cambiar Estado"  matTooltipPosition="before">
+                      <mat-icon class="material-icons-outlined">{{n.visible ? 'visibility' : 'visibility_off'}} </mat-icon> {{n.visible ? 'Pública' : 'Privada'}}
                       </button>
               </mat-cell>  
           </ng-container>

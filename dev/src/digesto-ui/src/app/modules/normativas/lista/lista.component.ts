@@ -158,7 +158,13 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
-
+  cambiar_visibilidad(norma) {
+    this.subscriptions.push(
+      this.service.cambiar_visibilidad(norma.id, !norma.visible).subscribe(_ => {
+        this.buscar$.next();
+      })
+    );
+  }
 
 
 }
