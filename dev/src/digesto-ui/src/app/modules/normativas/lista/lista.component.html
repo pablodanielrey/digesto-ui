@@ -63,6 +63,10 @@
 
     <div class="resultados">
 
+        <div class='cargando' *ngIf='cargando$ | async'>
+            <mat-spinner></mat-spinner>
+        </div>      
+
         <mat-table matSort [dataSource]="normas_paginadas$ | async" multiTemplateDataRows>
 
           <ng-container matColumnDef="numero" >

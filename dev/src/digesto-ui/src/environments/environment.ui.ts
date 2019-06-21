@@ -7,8 +7,8 @@ export const environment = {
   loginApiUrl: 'https://api.econo.unlp.edu.ar/login/api/v1.0',
   wardenApiUrl: 'https://api.econo.unlp.edu.ar/warden/api/v1.0',
   oidp_issuer: 'https://oidc.econo.unlp.edu.ar/',
-  //digestoApiUrl: 'http://163.10.17.13:11302/digesto/api/v1.0',
-  digestoApiUrl: 'http://localhost:11302/digesto/api/v1.0',
+  digestoApiUrl: 'http://163.10.17.13:11302/digesto/api/v1.0',
+  //digestoApiUrl: 'http://localhost:11302/digesto/api/v1.0',
 
   client_id: 'digesto-ui',
   version: '0.0.1a',
@@ -17,7 +17,7 @@ export const environment = {
     cabecera: 'DIGESTO | FCE',
     version: '0.0.1a',
     tituloSistema: 'DIGESTO',
-    subtituloSistema: '',
+    subtituloSistema: 'Normativas de la Facultad de Ciencias Económicas',
     desarrolloSistema: 'DiTeSI | Dirección de Tecnologías y Sistemas Informáticos',
     logoSistema: '/assets/img/fce/logofce2018.png',
   }     

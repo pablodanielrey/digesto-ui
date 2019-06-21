@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, NgZone } from '@angular/core';
 import { DigestoService } from 'src/app/shared/services/digesto.service';
 import { Observable, Subject, of, BehaviorSubject, combineLatest } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -29,10 +29,12 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   normas_ordenadas$: Observable<any[]> = null;
   normas_paginadas$: Observable<any[]> = null;
 
+  cargando$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   estados$: Observable<any[]> = null;
   mostrarFiltros:boolean=false;
 
-  tamano: number = 10;
+  tamano$: Observable<number>;
 
   ordenar$ = new BehaviorSubject<Sort>({active:'numero',direction:''});
   pagina$ = new BehaviorSubject<PageEvent>({length: 0, pageIndex: 0, pageSize: 10});
@@ -45,7 +47,8 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
           private service: DigestoService,
           private fb: FormBuilder,
-          private router: Router) { 
+          private router: Router,
+          private zone: NgZone) { 
 
     let mes_milis = 1000 * 60 * 60 * 24 * 15;
     this.filters = this.fb.group({
@@ -55,6 +58,9 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.normas$ = this.buscar$.pipe(
+      tap(v => { 
+        this.zone.run(() => { this.cargando$.next(true); })
+      }),
       switchMap( _ => {
         let desde = this.desde;
         let hasta = this.hasta;
@@ -63,11 +69,14 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     )
 
+    this.tamano$ = this.normas$.pipe(
+      map(ns => ns.length)
+    )
+
     this.normas_ordenadas$ = combineLatest(this.ordenar$, this.buscar$).pipe(
       tap(v => console.log(v)),
       switchMap(valores => {
         return this.normas$.pipe(
-          tap(ns => this.tamano = ns.length),
           map(ns => { ns.forEach(e => e.fecha = new Date(e.fecha)); return ns; }),
           map(ns => ns.sort((a,b) => {
             let s = valores[0];
@@ -92,7 +101,8 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
         let i = pagina.pageIndex * pagina.pageSize;
         let f = i + pagina.pageSize;
         return normas.slice(i,f);
-      })
+      }),
+      tap(v => this.zone.run(() => { this.cargando$.next(false); }))
     )    
 
     this.estados$ = of(['Todas','Pendientes','Aprobadas']);
