@@ -83,6 +83,13 @@
               </mat-cell>  
           </ng-container>
 
+          <ng-container matColumnDef="creada" >
+              <mat-header-cell *matHeaderCellDef > Creada </mat-header-cell>
+              <mat-cell *matCellDef="let n" > 
+                {{n.creada | date}}
+              </mat-cell>  
+          </ng-container>
+
           <ng-container matColumnDef="tipo" >
               <mat-header-cell *matHeaderCellDef > Tipo </mat-header-cell>
               <mat-cell *matCellDef="let n"> 

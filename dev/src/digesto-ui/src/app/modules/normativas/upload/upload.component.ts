@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { Emisor, Tipo } from 'src/app/shared/entities/digesto';
 import { DigestoService } from 'src/app/shared/services/digesto.service';
+import { ModalService } from 'src/app/core/modal/modal.service';
 
 
 
@@ -25,11 +26,11 @@ export class UploadComponent implements OnInit, OnDestroy {
 
   constructor(
           private fb: FormBuilder, 
-          private service: DigestoService) { 
+          private service: DigestoService,
+          private modal: ModalService) { 
 
     this.form = fb.group({
       'numero': [''],
-      'extracto': [''],
       'fecha': [new Date()],
       'tipo': [''],
       'emisor': [''],
@@ -42,6 +43,17 @@ export class UploadComponent implements OnInit, OnDestroy {
 
     this.emisores$ = this.service.obtener_emisores();
     this.tipos$ = this.service.obtener_tipos();
+
+    // obtengo las normativas cargadas dentro de esta semana para deducir el número de norma a usar.
+    this.subscriptions.push(this.service.obtener_metadatos().subscribe(m => {
+      this.form.get('numero').setValue(m['numero_norma']);
+      /*
+      let datos = {
+        'numero': m['numero_norma']
+      }
+      this.form.patchValue(datos);
+      */
+    }))
   }
 
   get tipo() {
@@ -60,7 +72,14 @@ export class UploadComponent implements OnInit, OnDestroy {
     console.log(this.form.value);
 
     let archivos = [];
-    this.form.get('archivo').value.forEach(a => {
+    let aux = this.form.get('archivo').value
+    if (aux == null) {
+      this.subscriptions.push(this.modal.openErrorModal('Debe subir algún archivo').subscribe(_ => {
+        // nada;
+      }));
+      return;
+    }
+    aux.forEach(a => {
       archivos.push({
         name: a.archivo.name,
         size: a.archivo.size,
@@ -74,7 +93,7 @@ export class UploadComponent implements OnInit, OnDestroy {
     let v = this.estado.get('aprobado').value ? true : false;
     let norma = {
       'numero': this.form.get('numero').value,
-      'extracto': this.form.get('extracto').value,
+      //'extracto': this.form.get('extracto').value,
       'fecha': this.form.get('fecha').value,
       'tipo': this.form.get('tipo').value,
       'emisor': this.form.get('emisor').value,
@@ -85,9 +104,18 @@ export class UploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.service.subir_norma(norma).subscribe(e => {
       if (e.status == 500) {
         console.log('error subiendo norma');
+        this.subscriptions.push(
+          this.modal.openErrorModal('Error creando norma').subscribe(_ => {
+            // nada;
+          })
+        )
       } else {
         console.log('norma subida ok');
-        this.form.reset();
+        this.subscriptions.push(this.modal.openInfoModal('Crando Norma', 'Norma creada existosamente').subscribe(_ => {
+          let numero = this.form.get('numero').value;
+          this.form.reset();
+          this.form.get('numero').setValue(numero + 1);
+        }));
       }
     }));
   }

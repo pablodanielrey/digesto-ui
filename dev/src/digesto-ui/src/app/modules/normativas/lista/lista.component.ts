@@ -23,7 +23,7 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort, null) sort: MatSort;
   @ViewChild(MatPaginator, null) paginator: MatPaginator;
 
-  columnas_ = ['numero','tipo','fecha','emisor','archivo','visibilidad'];
+  columnas_ = ['numero','tipo','fecha','creada','emisor','archivo','visibilidad'];
   filters: FormGroup = null;
   normas$: Observable<any[]> = null;
   normas_ordenadas$: Observable<any[]> = null;

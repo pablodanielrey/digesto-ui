@@ -21,13 +21,7 @@
             </mat-form-field>
 
             <mat-form-field class="itemFormulario" appearance="outline">
-              <mat-label>Extracto</mat-label>
-              <textarea matInput formControlName='extracto'></textarea>
-            </mat-form-field>
-
-            <mat-form-field class="itemFormulario" appearance="outline">
                 <mat-label>Fecha</mat-label>
-
               <input matInput [matDatepicker]="picker" placeholder="Fecha" fromControlName='fecha' readonly required>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
@@ -70,14 +64,8 @@
 
 
         <div class="bloqueAcciones">
-
             <button mat-Button type='submit' class="btnGuardar" mat-flat-button color="primary">CREAR NORMA</button>
-
-
         </div>
-
-
-
 
     </form>
 

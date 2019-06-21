@@ -38,6 +38,15 @@ export class DigestoService {
     return req;
   }
 
+  obtener_metadatos(): Observable<any> {
+    let url = `${API_URL}/metadatos`;
+    let req = this.http.get(url).pipe(
+      tap(v => console.log(v)),
+      map(r => r['data'])
+    )
+    return req;
+  }
+
   obtener_normas(desde:Date, hasta:Date, estado:string, texto:string): Observable<any[]> {
     let url = `${API_URL}/norma`;
     /*
