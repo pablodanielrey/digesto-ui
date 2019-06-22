@@ -54,11 +54,21 @@
                 </mat-select>
               </mat-form-field>  
               
+              <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName='estado' required>
+                  <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
+                    {{estado}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>  
+
+              <!-- 
               <div [formGroup]='estado' class="estados">
                 <div><mat-checkbox formControlName='aprobado'>Aprobado</mat-checkbox></div>
                 <div><mat-checkbox formControlName='pendiente'>Pendiente</mat-checkbox></div>
               </div>
-              
+              -->
 
         </div>
 

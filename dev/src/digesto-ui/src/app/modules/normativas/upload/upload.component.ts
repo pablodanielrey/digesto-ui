@@ -23,6 +23,7 @@ export class UploadComponent implements OnInit, OnDestroy {
   form: FormGroup;
   emisores$ : Observable<Emisor[]> = null;
   tipos$: Observable<Tipo[]> = null;
+  estados$: Observable<string[]> = null;
 
   constructor(
           private fb: FormBuilder, 
@@ -34,15 +35,19 @@ export class UploadComponent implements OnInit, OnDestroy {
       'fecha': [new Date()],
       'tipo': [''],
       'emisor': [''],
+      'estado': [''],
+      /*
       'estado': fb.group({
         'aprobado': [true],
         'pendiente': [false]
       }),
+      */
       'archivo': [[]]
     });
 
     this.emisores$ = this.service.obtener_emisores();
     this.tipos$ = this.service.obtener_tipos();
+    this.estados$ = of(['Pendiente','Aprobada']);
 
     // obtengo las normativas cargadas dentro de esta semana para deducir el número de norma a usar.
     this.subscriptions.push(this.service.obtener_metadatos().subscribe(m => {
@@ -90,7 +95,8 @@ export class UploadComponent implements OnInit, OnDestroy {
     }) 
 
 
-    let v = this.estado.get('aprobado').value ? true : false;
+    //let v = this.estado.get('aprobado').value ? true : false;
+    let v = this.form.get('estado').value == 'Aprobada' ? true : false;
     let norma = {
       'numero': this.form.get('numero').value,
       //'extracto': this.form.get('extracto').value,
