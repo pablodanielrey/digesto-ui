@@ -104,20 +104,20 @@ $mat-accentfce: (
 
 
 $mat-warnfce: (
-    50 : #fde7e8,
-    100 : #f9c3c6,
-    200 : #f59ba0,
-    300 : #f17379,
-    400 : #ee555d,
-    500 : #eb3740,
-    600 : #e9313a,
-    700 : #e52a32,
-    800 : #e2232a,
-    900 : #dd161c,
-    A100 : #ffffff,
-    A200 : #ffdadb,
-    A400 : #ffa7aa,
-    A700 : #ff8e91,
+    50 : #eceff1,
+    100 : #cfd8dc,
+    200 : #b0bec5,
+    300 : #90a4ae,
+    400 : #78919c,
+    500 : #607d8b,
+    600 : #587583,
+    700 : #4e6a78,
+    800 : #44606e,
+    900 : #334d5b,
+    A100 : #abe1ff,
+    A200 : #78ceff,
+    A400 : #45bcff,
+    A700 : #2bb3ff,
     contrast: (
         50 : #000000,
         100 : #000000,
@@ -157,3 +157,4 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 .temaFceOscuro {
   @include angular-material-theme($dark-theme);
 }
+
