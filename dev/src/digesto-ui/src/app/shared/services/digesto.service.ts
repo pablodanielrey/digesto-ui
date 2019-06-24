@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { map, tap, mergeMap, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
@@ -82,7 +82,10 @@ export class DigestoService {
   subir_norma(norma: any): Observable<any> {
     let url = `${API_URL}/norma`;
     let data = norma;
-    let req = this.http.post(url, data);
+    let req = this.http.post(url, data).pipe(
+      catchError(
+      (err:HttpErrorResponse) => of({status: 500, data: err.message})
+    ));
     return req;
   }
 
