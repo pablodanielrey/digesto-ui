@@ -1,6 +1,8 @@
 <mat-toolbar-row>
+  <!-- 
   <button class="btnVolver" mat-button color="primary" (click)='volver()'> <mat-icon>undo </mat-icon> VOLVER </button>
   <button class="btnVolverCel" mat-icon-button color="primary" (click)='volver()'> <mat-icon>undo</mat-icon> </button>
+  -->
   <span class="ruta">&nbsp; Nueva Norma</span>
 
 </mat-toolbar-row>
@@ -9,7 +11,9 @@
 
 <div class="pantalla">
 
-
+    <div class='cargando' *ngIf='cargando$ | async'>
+      <mat-spinner></mat-spinner>
+    </div>      
 
     <form [formGroup]='form' (ngSubmit)='subir()' class="formulario">
 
@@ -21,13 +25,7 @@
             </mat-form-field>
 
             <mat-form-field class="itemFormulario" appearance="outline">
-              <mat-label>Extracto</mat-label>
-              <textarea matInput formControlName='extracto'></textarea>
-            </mat-form-field>
-
-            <mat-form-field class="itemFormulario" appearance="outline">
                 <mat-label>Fecha</mat-label>
-
               <input matInput [matDatepicker]="picker" placeholder="Fecha" fromControlName='fecha' readonly required>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
@@ -60,24 +58,28 @@
                 </mat-select>
               </mat-form-field>  
               
+              <mat-form-field class="itemFormulario" appearance="outline">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName='estado' required>
+                  <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
+                    {{estado}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>  
+
+              <!-- 
               <div [formGroup]='estado' class="estados">
                 <div><mat-checkbox formControlName='aprobado'>Aprobado</mat-checkbox></div>
                 <div><mat-checkbox formControlName='pendiente'>Pendiente</mat-checkbox></div>
               </div>
-              
+              -->
 
         </div>
 
 
         <div class="bloqueAcciones">
-
             <button mat-Button type='submit' class="btnGuardar" mat-flat-button color="primary">CREAR NORMA</button>
-
-
         </div>
-
-
-
 
     </form>
 

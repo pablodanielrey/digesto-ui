@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, NgZone } from '@angular/core';
 import { DigestoService } from 'src/app/shared/services/digesto.service';
 import { Observable, Subject, of, merge, combineLatest, BehaviorSubject } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -23,7 +23,7 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort, null) sort: MatSort;
   @ViewChild(MatPaginator, null) paginator: MatPaginator;
 
-  columnas_ = ['numero','tipo','fecha','emisor','archivo','visibilidad'];
+  columnas_ = ['numero','tipo','fecha','creada','emisor','archivo','visibilidad'];
   filters: FormGroup = null;
   normas$: Observable<any[]> = null;
   normas_ordenadas$: Observable<any[]> = null;
@@ -33,6 +33,8 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   mostrarFiltros:boolean=false;
 
   tamano: number = 10;
+
+  cargando$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);  
 
   buscar$ = new BehaviorSubject<void>(null);
   ordenar$ = new BehaviorSubject<Sort>({active:'numero',direction:''});
@@ -45,7 +47,8 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
           private service: DigestoService,
           private fb: FormBuilder,
-          private navegar: NavegarService) { 
+          private navegar: NavegarService,
+          private zone: NgZone) { 
 
     let mes_milis = 1000 * 60 * 60 * 24 * 10;
     this.filters = this.fb.group({
@@ -56,6 +59,9 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.normas$ = this.buscar$.pipe(
+      tap(v => { 
+        this.zone.run(() => { this.cargando$.next(true); })
+      }),      
       switchMap( _ => {
         let desde = this.desde;
         let hasta = this.hasta;
@@ -96,7 +102,10 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
         let i = pagina.pageIndex * pagina.pageSize;
         let f = i + pagina.pageSize;
         return normas.slice(i,f);
-      })
+      }),
+      tap(v => { 
+        this.zone.run(() => { this.cargando$.next(false); })
+      })      
     )
   }
 

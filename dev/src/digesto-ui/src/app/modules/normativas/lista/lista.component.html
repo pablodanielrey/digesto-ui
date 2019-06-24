@@ -1,6 +1,8 @@
 <mat-toolbar-row>
+    <!--
     <button class="btnVolver" mat-button color="primary" (click)='volver()'> <mat-icon>undo </mat-icon> VOLVER </button>
     <button class="btnVolverCel" mat-icon-button color="primary" (click)='volver()'> <mat-icon>undo</mat-icon> </button>
+    -->
     <span class="ruta">&nbsp; Buscar Normas</span>
   
   </mat-toolbar-row>
@@ -63,6 +65,10 @@
 
     <div class="resultados">
 
+        <div class='cargando' *ngIf='cargando$ | async'>
+            <mat-spinner></mat-spinner>
+        </div>      
+
         <mat-table matSort [dataSource]="normas_paginadas$ | async" multiTemplateDataRows>
 
           <ng-container matColumnDef="numero" >
@@ -76,6 +82,13 @@
               <mat-header-cell *matHeaderCellDef > Fecha </mat-header-cell>
               <mat-cell *matCellDef="let n" > 
                 {{n.fecha | date}}
+              </mat-cell>  
+          </ng-container>
+
+          <ng-container matColumnDef="creada" >
+              <mat-header-cell *matHeaderCellDef > Creada </mat-header-cell>
+              <mat-cell *matCellDef="let n" > 
+                {{n.creada | date}}
               </mat-cell>  
           </ng-container>
 

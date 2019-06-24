@@ -1,3 +1,16 @@
+.cargando {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .pantalla {
     padding: 20px;
     display: flex;
@@ -6,8 +19,6 @@
     //     flex-direction: column;
     // }
 }
-
-
 
 .btnVolver {
     display: inline;

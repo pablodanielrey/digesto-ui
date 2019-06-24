@@ -17,7 +17,7 @@ export const environment = {
     cabecera: 'DIGESTO | FCE',
     version: '0.0.1a',
     tituloSistema: 'DIGESTO',
-    subtituloSistema: '',
+    subtituloSistema: 'Normativas de la Facultad de Ciencias Económicas',
     desarrolloSistema: 'DiTeSI | Dirección de Tecnologías y Sistemas Informáticos',
     logoSistema: '/assets/img/fce/logofce2018.png',
   }    
