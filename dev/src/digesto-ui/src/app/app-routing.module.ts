@@ -37,7 +37,7 @@ const routes: Routes = [
       }
      ]
   },
-  { path: '**', redirectTo: '/sistema/normativas/listar' }
+  { path: '**', redirectTo: '/loader' }
 
 ];
 
