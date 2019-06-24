@@ -6,6 +6,9 @@ import { mergeMap, switchMap, map, tap } from 'rxjs/operators';
 import { NavegarService } from 'src/app/core/navegar.service';
 import { Router } from '@angular/router';
 import { MAT_SORT_HEADER_INTL_PROVIDER, PageEvent, Sort, MatSort, MatPaginator } from '@angular/material';
+import { UpdateService } from 'src/app/shared/services/update.service';
+
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-lista',
@@ -14,6 +17,7 @@ import { MAT_SORT_HEADER_INTL_PROVIDER, PageEvent, Sort, MatSort, MatPaginator }
 })
 export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  environment = environment;
   subscriptions = [];
 
   ngOnDestroy(): void {
@@ -48,7 +52,8 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
           private service: DigestoService,
           private fb: FormBuilder,
           private router: Router,
-          private zone: NgZone) { 
+          private zone: NgZone,
+          private update: UpdateService) { 
 
     let mes_milis = 1000 * 60 * 60 * 24 * 15;
     this.filters = this.fb.group({
@@ -154,6 +159,7 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   }  
 
   ngOnInit() {
+    this.update.checkForUpdate();
   }
 
 }

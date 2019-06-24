@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Emisor, Tipo } from 'src/app/shared/entities/digesto';
 import { DigestoService } from 'src/app/shared/services/digesto.service';
 import { ModalService } from 'src/app/core/modal/modal.service';
@@ -20,6 +20,7 @@ export class UploadComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
+  cargando$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   form: FormGroup;
   emisores$ : Observable<Emisor[]> = null;
   tipos$: Observable<Tipo[]> = null;
@@ -28,7 +29,8 @@ export class UploadComponent implements OnInit, OnDestroy {
   constructor(
           private fb: FormBuilder, 
           private service: DigestoService,
-          private modal: ModalService) { 
+          private modal: ModalService,
+          private zone: NgZone) { 
 
     this.form = fb.group({
       'numero': [''],
@@ -107,7 +109,9 @@ export class UploadComponent implements OnInit, OnDestroy {
       'archivo': archivos.length > 0 ? archivos[0] : null
     }
 
+    this.zone.run(() => { this.cargando$.next(true); })
     this.subscriptions.push(this.service.subir_norma(norma).subscribe(e => {
+      this.zone.run(() => { this.cargando$.next(false); })
       if (e.status == 500) {
         console.log('error subiendo norma');
         this.subscriptions.push(
