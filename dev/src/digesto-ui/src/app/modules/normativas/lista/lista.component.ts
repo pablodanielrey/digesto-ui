@@ -60,7 +60,7 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
           private navegar: NavegarService,
           private zone: NgZone) { 
 
-    let mes_milis = 1000 * 60 * 60 * 24 * 10;
+    let mes_milis = 1000 * 60 * 60 * 24 * 30;
     this.filters = this.fb.group({
       'desde':[new Date((new Date()).getTime() - mes_milis)],
       'hasta':[new Date()],
