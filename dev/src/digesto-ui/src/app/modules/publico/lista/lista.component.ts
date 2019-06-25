@@ -47,9 +47,15 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   buscar$ = new BehaviorSubject<void>(null);
 
   columnas() {
-    return this.columnas_;
+    /*
+      detecta si es un dispositivo touch
+    */
+    if (typeof window.ontouchstart !== 'undefined') {
+      return this.columnasCelular;
+    } else {
+      return this.columnasDesktop;
+    }
   }
-
   constructor(
           private service: DigestoService,
           private fb: FormBuilder,
@@ -164,15 +170,6 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
     this.update.checkForUpdate();
   }
 
-  columnas() {
-    /*
-      detecta si es un dispositivo touch
-    */
-    if (typeof window.ontouchstart !== 'undefined') {
-      return this.columnasCelular;
-    } else {
-      return this.columnasDesktop;
-    }
-  }
+
 
 }
