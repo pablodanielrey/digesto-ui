@@ -66,7 +66,7 @@
     <div class="resultados">
 
         <div class='cargando' *ngIf='cargando$ | async'>
-            <mat-spinner></mat-spinner>
+            <mat-spinner diameter="50"></mat-spinner>
         </div>      
 
         <mat-table matSort [dataSource]="normas_paginadas$ | async" multiTemplateDataRows>
@@ -81,14 +81,14 @@
           <ng-container matColumnDef="fecha" >
               <mat-header-cell *matHeaderCellDef > Fecha </mat-header-cell>
               <mat-cell *matCellDef="let n" > 
-                {{n.fecha | date}}
+                {{n.fecha | date: 'dd/MM/yyyy'}}
               </mat-cell>  
           </ng-container>
 
           <ng-container matColumnDef="creada" >
               <mat-header-cell *matHeaderCellDef > Creada </mat-header-cell>
               <mat-cell *matCellDef="let n" > 
-                {{n.creada | date}}
+                {{n.creada | date: 'dd/MM/yyyy'}}
               </mat-cell>  
           </ng-container>
 
@@ -129,6 +129,16 @@
                       </button>
               </mat-cell>  
           </ng-container>
+
+          <ng-container matColumnDef="visibilidadCel">
+              <mat-header-cell *matHeaderCellDef> Visibilidad </mat-header-cell>
+              <mat-cell *matCellDef="let n" > 
+                  <button mat-button color="primary" (click)="cambiar_visibilidad(n)" matTooltip="Cambiar Estado"  matTooltipPosition="before">
+                      <mat-icon class="material-icons-outlined">{{n.visible ? 'visibility' : 'visibility_off'}} </mat-icon> 
+                      </button>
+              </mat-cell>  
+          </ng-container>
+
 
           <mat-header-row *matHeaderRowDef="columnas()"></mat-header-row>
           <mat-row *matRowDef="let row; columns: columnas();"></mat-row>

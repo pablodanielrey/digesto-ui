@@ -23,7 +23,9 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort, null) sort: MatSort;
   @ViewChild(MatPaginator, null) paginator: MatPaginator;
 
-  columnas_ = ['numero','tipo','fecha','creada','emisor','archivo','visibilidad'];
+  // columnas_ = ['numero','tipo','fecha','creada','emisor','archivo','visibilidad'];
+  columnasDesktop : string[] = ['numero', 'fecha', 'tipo', 'emisor', 'creada', 'archivo','visibilidad'];
+  columnasCelular : string[] = ['numero', 'fecha', 'tipo', 'archivo','visibilidadCel'];
   filters: FormGroup = null;
   normas$: Observable<any[]> = null;
   normas_ordenadas$: Observable<any[]> = null;
@@ -40,8 +42,16 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   ordenar$ = new BehaviorSubject<Sort>({active:'numero',direction:''});
   pagina$ = new BehaviorSubject<PageEvent>({length: 0, pageIndex: 0, pageSize: 10});
 
+
   columnas() {
-    return this.columnas_;
+    /*
+      detecta si es un dispositivo touch
+    */
+    if (typeof window.ontouchstart !== 'undefined') {
+      return this.columnasCelular;
+    } else {
+      return this.columnasDesktop;
+    }
   }
 
   constructor(
