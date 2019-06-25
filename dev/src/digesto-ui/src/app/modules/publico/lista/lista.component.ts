@@ -27,7 +27,9 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort, null) sort: MatSort;
   @ViewChild(MatPaginator, null) paginator: MatPaginator;
 
-  columnas_ = ['numero', 'fecha', 'tipo', 'emisor', 'archivo'];
+  // columnas_ = ['numero', 'fecha', 'tipo', 'emisor', 'archivo'];
+  columnasDesktop : string[] = ['numero', 'fecha', 'tipo', 'emisor', 'archivo'];
+  columnasCelular : string[] = ['numero', 'fecha', 'tipo', 'archivo'];
   filters: FormGroup = null;
   normas$: Observable<any[]> = null;
   normas_ordenadas$: Observable<any[]> = null;
@@ -160,6 +162,17 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.update.checkForUpdate();
+  }
+
+  columnas() {
+    /*
+      detecta si es un dispositivo touch
+    */
+    if (typeof window.ontouchstart !== 'undefined') {
+      return this.columnasCelular;
+    } else {
+      return this.columnasDesktop;
+    }
   }
 
 }

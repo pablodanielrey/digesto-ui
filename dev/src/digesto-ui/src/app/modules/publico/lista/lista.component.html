@@ -1,145 +1,100 @@
 <div class="bloque">
-<mat-toolbar class="toolbar">
-    <div>DIGESTO | {{environment.version}}</div>
 
-  <button mat-stroked-button (click)="acceder()" color="secundary" class="btnAcceder">ACCEDER</button>
-</mat-toolbar>
+    <mat-toolbar class="toolbar">
+        <div class="tituloSistema">
+            <div class="textDigesto">DIGESTO</div>  <div class="version">v. {{environment.version}}</div>
+        </div>
+        <button mat-stroked-button (click)="acceder()" color="secundary" class="btnAcceder">ACCEDER</button>
+    </mat-toolbar>
+    
+    <div class="contenedorBusqueda temaFceOscuro">
 
-<div class="contenedorBusqueda">
+              
+              <h1 class="titulo"><b>DIGESTO</b> - ¿Qué estás buscando?</h1>
 
-    <!-- <mat-card> -->
 
-        <div class="busquedaPC temaFceOscuro">
+              <form [formGroup]='filters' (ngSubmit)='buscar()' class="formularioPC">
 
-            <form [formGroup]='filters' (ngSubmit)='buscar()' class="formularioPC">
+                  <div class="bloqueBuscar">
 
-                <div class="bloqueBuscar">
+                    <mat-form-field class="inputBuscar" appearance="fill">
+                        <mat-label>Buscar Normas</mat-label>
+                        <input matInput formControlName='texto'>
+                        <mat-hint class="mensajeBusqueda">Búsqueda libre ( palabras, números, extracto de norma, etc.)</mat-hint>
 
-                  <mat-form-field class="inputBuscar" appearance="fill">
-                      <mat-label>Buscar Normas</mat-label>
-                      <input matInput formControlName='texto'>
-                      <mat-hint class="mensajeBusqueda">Búsqueda libre ( palabras, números, extracto de norma, etc.)</mat-hint>
+                      </mat-form-field>
+          
+                      <button type='submit' class="btnBuscarPC" mat-flat-button color="primary">   
+                          <mat-icon matSuffix>search</mat-icon> 
+                      </button>
 
+                  </div>
+
+
+              </form>
+
+
+
+          
+      
+
+
+      <!-- <div class="busquedaPC temaFceOscuro">
+
+              <form [formGroup]='filters' (ngSubmit)='buscar()' class="formularioPC">
+
+                  <div class="bloqueBuscar">
+
+                    <mat-form-field class="inputBuscar" appearance="fill">
+                        <mat-label>Buscar Normas</mat-label>
+                        <input matInput formControlName='texto'>
+                        <mat-hint class="mensajeBusqueda">Búsqueda libre ( palabras, números, extracto de norma, etc.)</mat-hint>
+
+                      </mat-form-field>
+          
+                      <button type='submit' class="btnBuscarPC" mat-flat-button color="primary">   
+                          <mat-icon matSuffix>search</mat-icon> 
+                      </button>
+
+                  </div>
+
+                  <div class="filtosPC">
+
+                    <mat-form-field class="inputFecha" appearance="fill">
+                      <mat-label>Desde</mat-label>
+                      <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
+                      <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
+                      <mat-datepicker #desde></mat-datepicker>
                     </mat-form-field>
         
-                    <button type='submit' class="btnBuscarPC" mat-flat-button color="primary">   
-                        <mat-icon matSuffix>search</mat-icon> 
-                    </button>
+                    <mat-form-field class="inputFecha" appearance="fill">
+                      <mat-label>Hasta</mat-label>
+                      <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
+                      <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
+                      <mat-datepicker #hasta></mat-datepicker>
+                    </mat-form-field>
 
-                </div>
+                  </div>
 
-                <div class="filtosPC">
+              </form>
 
-                  <mat-form-field class="inputFecha" appearance="fill">
-                    <mat-label>Desde</mat-label>
-                    <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
-                    <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
-                    <mat-datepicker #desde></mat-datepicker>
-                  </mat-form-field>
-      
-                  <mat-form-field class="inputFecha" appearance="fill">
-                    <mat-label>Hasta</mat-label>
-                    <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
-                    <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
-                    <mat-datepicker #hasta></mat-datepicker>
-                  </mat-form-field>
-
-                </div>
-
-                
-
-
-          </form>
-
-        </div>
+        </div> -->
 
 
 
-        <!-- <form [formGroup]='filters' (ngSubmit)='buscar()'>
+    </div>
 
-          <div class="contenedorInput">
-              <mat-form-field class="itemFormulario" appearance="outline">
-                  <mat-label>Buscar Normas</mat-label>
-                  <input matInput formControlName='texto'>
-                </mat-form-field>
-    
-                <button type='submit' class="btnGuardar" mat-flat-button color="primary">   
-                    <mat-icon matSuffix>search</mat-icon>
-                </button>
-          </div>
-
-          <button type="button" mat-button class="btnFiltros" (click)="mostrarFiltros = !mostrarFiltros"> Filtros <i class="material-icons">keyboard_arrow_down</i></button>
-          <div *ngIf="mostrarFiltros">
-
-              <mat-form-field class="itemFormulario" appearance="outline">
-                  <mat-label>Desde</mat-label>
-                  <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
-                  <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
-                  <mat-datepicker #desde></mat-datepicker>
-                </mat-form-field>
-    
-                <mat-form-field class="itemFormulario" appearance="outline">
-                  <mat-label>Hasta</mat-label>
-                  <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
-                  <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
-                  <mat-datepicker #hasta></mat-datepicker>
-                </mat-form-field>
-          </div>
-
-        </form> -->
-      <!-- </mat-card> -->
-
-  </div>
  </div>
 
 
 <div class="pantalla">
 
-  <div class="busqueda">
-
-      <mat-card>
-        <form [formGroup]='filters' (ngSubmit)='buscar()'>
-
-          <div class="contenedorInput">
-              <mat-form-field class="itemFormulario" appearance="outline">
-                  <mat-label>Buscar Normas</mat-label>
-                  <input matInput formControlName='texto'>
-                  <!-- <mat-icon matSuffix>search</mat-icon> -->
-                </mat-form-field>
-    
-                <button type='submit' class="btnGuardar" mat-flat-button color="primary">   
-                    <mat-icon matSuffix>search</mat-icon>
-                </button>
-          </div>
-
-          <button type="button" mat-button class="btnFiltros" (click)="mostrarFiltros = !mostrarFiltros"> Filtros <i class="material-icons">keyboard_arrow_down</i></button>
-          <div *ngIf="mostrarFiltros">
-
-              <mat-form-field class="itemFormulario" appearance="outline">
-                  <mat-label>Desde</mat-label>
-                  <input matInput [matDatepicker]="desde" placeholder="Desde" formControlName='desde'>
-                  <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
-                  <mat-datepicker #desde></mat-datepicker>
-                </mat-form-field>
-    
-                <mat-form-field class="itemFormulario" appearance="outline">
-                  <mat-label>Hasta</mat-label>
-                  <input matInput [matDatepicker]="hasta" placeholder="Hasta" formControlName='hasta'>
-                  <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
-                  <mat-datepicker #hasta></mat-datepicker>
-                </mat-form-field>
-          </div>
-
-        </form>
-      </mat-card>
-
-  </div>
 
   <div class="resultados">
 
 
       <div class='cargando' *ngIf='cargando$ | async'>
-          <mat-spinner></mat-spinner>
+          <mat-spinner diameter="50"></mat-spinner>
       </div>
 
       <div>
@@ -147,7 +102,7 @@
         <mat-table matSort [dataSource]="normas_paginadas$ | async" multiTemplateDataRows>
 
           <ng-container matColumnDef="numero" >
-              <mat-header-cell mat-sort-header *matHeaderCellDef > Número </mat-header-cell>
+              <mat-header-cell mat-sort-header *matHeaderCellDef > Nº </mat-header-cell>
               <mat-cell *matCellDef="let n" > 
                 {{n.numero}}
               </mat-cell>  
@@ -156,7 +111,7 @@
           <ng-container matColumnDef="fecha" >
               <mat-header-cell *matHeaderCellDef > Fecha </mat-header-cell>
               <mat-cell *matCellDef="let n" > 
-                {{n.fecha | date}}
+                {{n.fecha | date: 'dd/MM/yyyy'}} 
               </mat-cell>  
           </ng-container>
 
@@ -209,3 +164,4 @@
   </div>
 
 </div>
+

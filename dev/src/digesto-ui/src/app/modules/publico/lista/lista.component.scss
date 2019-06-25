@@ -13,6 +13,21 @@
 
 }
 
+.tituloSistema {
+    display: flex;
+    align-items:baseline;
+}
+
+.textDigesto {
+    font-weight: 300;
+}
+
+.version {
+    font-size: 12px;
+    margin-left: 5px;
+    opacity: .8;
+}
+
 .btnAcceder {
     background-color: white;
     color: #607d8b;
@@ -26,10 +41,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: 100%;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+
+.titulo {
+    color: white;
+    font-weight: 300;
+    padding: 0px;
+    margin: 0 0 10px 0;
+    @media screen and (max-width: 768px) {
+    font-size: 20px;
+    }
+}
+
+
+
 
 .busquedaPC {
     width: 100%;
@@ -60,8 +90,13 @@
 .bloqueBuscar {
     display: flex;
     flex-direction: row;
-    width: 100%;
     justify-content: center;
+    width: 60%;
+
+    @media screen and (max-width: 1000px) {
+        width: 100%;
+
+    }
 
 
 }
@@ -133,9 +168,9 @@
     padding: 20px;
     display: flex;
     flex-direction: row;
-    // @media screen and (max-width: 768px) {
-    //     flex-direction: column;
-    // }
+    @media screen and (max-width: 768px) {
+        padding: 5px;
+    }
 }
 
 
@@ -197,3 +232,22 @@
     margin: -20px 0 10px 0;
     opacity: 0.7;
 }
+
+
+.mat-column-numero {
+    @media screen and (max-width: 768px) {
+        flex: 0 0 10% !important;
+        min-width: 50px !important;
+        width: 50px !important;
+    }
+  }
+  
+
+.mat-column-archivo {
+    @media screen and (max-width: 768px) {
+        flex: 0 0 10% !important;
+        min-width: 50px !important;
+        width: 50px !important;
+    }
+ }
+  
