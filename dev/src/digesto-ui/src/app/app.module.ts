@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MatPaginatorModule } from '@angular/material';
+import { MatPaginatorModule, MAT_DATE_LOCALE } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,7 +39,9 @@ import { ListaComponent as ListaPublicaComponent } from './modules/publico/lista
     MatPaginatorModule,
     CoreModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'es-AR'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
