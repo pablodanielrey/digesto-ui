@@ -21,12 +21,11 @@
                         <mat-label>Buscar Normas</mat-label>
                         <input matInput formControlName='texto'>
                         <mat-hint class="mensajeBusqueda">Búsqueda libre ( palabras, números, extracto de norma, etc.)</mat-hint>
-
-                      </mat-form-field>
+                    </mat-form-field>
           
-                      <button type='submit' class="btnBuscarPC" mat-flat-button color="primary">   
-                          <mat-icon matSuffix>search</mat-icon> 
-                      </button>
+                    <button type='submit' class="btnBuscarPC" mat-flat-button color="primary">   
+                        <mat-icon matSuffix>search</mat-icon> 
+                    </button>
 
                   </div>
 
@@ -99,7 +98,7 @@
 
       <div>
 
-        <mat-table matSort [dataSource]="normas_paginadas$ | async" multiTemplateDataRows>
+        <mat-table matSort [dataSource]="normas_paginadas$ | async" multiTemplateDataRows >
 
           <ng-container matColumnDef="numero" >
               <mat-header-cell mat-sort-header *matHeaderCellDef > Nº </mat-header-cell>

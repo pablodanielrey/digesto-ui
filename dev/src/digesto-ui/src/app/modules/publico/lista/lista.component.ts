@@ -5,10 +5,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { mergeMap, switchMap, map, tap } from 'rxjs/operators';
 import { NavegarService } from 'src/app/core/navegar.service';
 import { Router } from '@angular/router';
-import { MAT_SORT_HEADER_INTL_PROVIDER, PageEvent, Sort, MatSort, MatPaginator } from '@angular/material';
+import { MAT_SORT_HEADER_INTL_PROVIDER, PageEvent, Sort, MatSort, MatPaginator, MatSnackBar } from '@angular/material';
 import { UpdateService } from 'src/app/shared/services/update.service';
 
 import { environment } from '../../../../environments/environment';
+
 
 @Component({
   selector: 'app-lista',
@@ -61,9 +62,10 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
           private fb: FormBuilder,
           private router: Router,
           private zone: NgZone,
-          private update: UpdateService) { 
+          private update: UpdateService,
+          private snackBar: MatSnackBar) { 
 
-    let mes_milis = 1000 * 60 * 60 * 24 * 15;
+    let mes_milis = 1000 * 60 * 60 * 24 * 60;
     this.filters = this.fb.group({
       'desde':[new Date((new Date()).getTime() - mes_milis)],
       'hasta':[new Date()],
@@ -83,7 +85,8 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
     )
 
     this.tamano$ = this.normas$.pipe(
-      map(ns => ns.length)
+      map(ns => ns.length),
+      tap(num => num == 0 ? this.snackBar.open('No se encontraron resultados','', { duration: 2000}) : null)
     )
 
     this.normas_ordenadas$ = combineLatest(this.ordenar$, this.buscar$).pipe(
