@@ -6,11 +6,11 @@ export const environment = {
   digestoApiUrl: 'https://api.econo.unlp.edu.ar/digesto/api/v1.0',
 
   client_id: 'digesto-ui',
-  version: '0.0.3a',
+  version: '0.1.0',
 
   loader: {
     cabecera: 'DIGESTO | FCE',
-    version: '0.0.3a',
+    version: '0.1.0',
     tituloSistema: 'DIGESTO',
     subtituloSistema: 'Normativas de la Facultad de Ciencias Económicas',
     desarrolloSistema: 'DiTeSI | Dirección de Tecnologías y Sistemas Informáticos',
