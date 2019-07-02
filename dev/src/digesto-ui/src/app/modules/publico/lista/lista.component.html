@@ -108,31 +108,23 @@
           </ng-container>
 
           <ng-container matColumnDef="fecha" >
-              <mat-header-cell *matHeaderCellDef > Fecha </mat-header-cell>
+              <mat-header-cell mat-sort-header *matHeaderCellDef > Fecha </mat-header-cell>
               <mat-cell *matCellDef="let n" > 
                 {{n.fecha | date: 'dd/MM/yyyy'}} 
               </mat-cell>  
           </ng-container>
 
           <ng-container matColumnDef="tipo" >
-              <mat-header-cell *matHeaderCellDef > Tipo </mat-header-cell>
+              <mat-header-cell mat-sort-header *matHeaderCellDef > Tipo </mat-header-cell>
               <mat-cell *matCellDef="let n"> 
                 {{n.tipo}}
               </mat-cell>  
           </ng-container>
 
           <ng-container matColumnDef="emisor" >
-              <mat-header-cell *matHeaderCellDef> Emisor </mat-header-cell>
+              <mat-header-cell mat-sort-header *matHeaderCellDef> Emisor </mat-header-cell>
               <mat-cell *matCellDef="let n"> 
                 {{n.emisor}}
-              </mat-cell>  
-          </ng-container>
-
-          <ng-container matColumnDef="detalle" >
-              <mat-header-cell *matHeaderCellDef> Detalle </mat-header-cell>
-              <mat-cell *matCellDef="let n"> 
-                  <button (click)='detalle_norma(n.id)' mat-icon-button><mat-icon>zoom_in</mat-icon></button>
-                  <a mat-button target='_blank' [href]='detalle_norma_url(n.id)'><i class="material-icons-outlined">zoom_in</i></a>
               </mat-cell>  
           </ng-container>
 
@@ -140,15 +132,6 @@
               <mat-header-cell *matHeaderCellDef> Archivo </mat-header-cell>
               <mat-cell *matCellDef="let n" > 
                   <a mat-button color="primary" target='_blank' [href]="archivoUrl(n.archivo_id)"><i class="material-icons-outlined">picture_as_pdf </i></a>
-              </mat-cell>  
-          </ng-container>
-
-          <ng-container matColumnDef="visibilidad">
-              <mat-header-cell *matHeaderCellDef> Visibilidad </mat-header-cell>
-              <mat-cell *matCellDef="let n" > 
-                  <button mat-button color="primary" (click)="visible = !visible" matTooltip="Cambiar Estado"  matTooltipPosition="before">
-                      <mat-icon class="material-icons-outlined">{{visible ? 'visibility_off' : 'visibility'}} </mat-icon> {{visible ? 'Privada' : 'Pública'}}
-                      </button>
               </mat-cell>  
           </ng-container>
 

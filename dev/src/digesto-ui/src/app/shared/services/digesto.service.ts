@@ -64,7 +64,8 @@ export class DigestoService {
     }
     let req = this.http.get(url, { params: params }).pipe(
       tap(v => console.log(v)),
-      map(r => r['normas'])
+      map(r => r['normas']),
+      map(ns => { ns.forEach(e => {e.fecha = new Date(e.fecha); e.creada = new Date(e.creada)}); return ns; })
     )
     return req;
   }
