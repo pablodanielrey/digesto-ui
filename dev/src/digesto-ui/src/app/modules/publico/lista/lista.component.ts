@@ -173,6 +173,7 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   buscar() {
+    this.paginator.firstPage();
     this.buscar$.next();
   }
 
