@@ -89,17 +89,16 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
         return this.normas$.pipe(
           tap(ns => this.tamano = ns.length),
           map(ns => { ns.forEach(e => e.fecha = new Date(e.fecha)); return ns; }),
-          map(ns => ns.sort((a,b) => {
+          map(ns => {
             let s = valores[0];
-            console.log(s);
-            if (s['active'] == 'numero') {
-              let n1 = (s['direction'] == 'desc') ? a : b;
-              let n2 = (s['direction'] == 'desc') ? b : a;
-              let n =  n1.numero - n2.numero;
-              return (n == 0) ? n1.fecha.getTime() - n2.fecha.getTime() : n;
-            }
-            return (a.fecha.getTime() + a.numero) - (b.fecha.getTime() + b.numero);
-          }))
+            let dir = s['direction']
+            return ns.sort((a,b) => {
+              if (s['active'] == 'numero') {
+                return this._comparar_numero(a,b,dir);
+              }
+              return this._comparar_creada(a,b,dir);
+            })
+          })
         );
       }),
       tap(v => console.log(v))      
@@ -118,6 +117,20 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
       })      
     )
   }
+
+  _comparar_creada(a, b, dir) {
+    let n1 = (dir == 'desc') ? a : b;
+    let n2 = (dir == 'desc') ? b : a;
+    let n = n1.creada.getTime() - n2.creada.getTime();
+    return (n == 0) ? n1.numero - n2.numero : n;
+  }  
+
+  _comparar_numero(a, b, dir) {
+    let n1 = (dir == 'desc') ? a : b;
+    let n2 = (dir == 'desc') ? b : a;
+    let n = n1.numero - n2.numero;
+    return (n == 0) ? n1.fecha.getTime() - n2.fecha.getTime() : n;
+}
 
   get texto(): string {
     return this.filters.get('texto').value;
