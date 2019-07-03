@@ -34,7 +34,7 @@ export class UploadComponent implements OnInit, OnDestroy {
 
     this.form = fb.group({
       'numero': [''],
-      'fecha': [new Date()],
+      'fecha': [],
       'tipo': [''],
       'emisor': [''],
       'estado': [''],

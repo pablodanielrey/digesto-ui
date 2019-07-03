@@ -21,19 +21,19 @@
 
             <mat-form-field class="itemFormulario" appearance="outline">
               <mat-label>Número de Norma</mat-label>
-              <input matInput formControlName='numero' required>
+              <input matInput formControlName='numero'>
             </mat-form-field>
 
             <mat-form-field class="itemFormulario" appearance="outline">
                 <mat-label>Fecha</mat-label>
-              <input matInput [matDatepicker]="picker" placeholder="Fecha" fromControlName='fecha' readonly required>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <input matInput [matDatepicker]="fecha" placeholder="Fecha" formControlName='fecha'>
+              <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
+              <mat-datepicker #fecha></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field class="itemFormulario" appearance="outline">
                 <mat-label>Normativa</mat-label>
-                <adjuntar-archivos formControlName='archivo' required></adjuntar-archivos>
+                <adjuntar-archivos formControlName='archivo'></adjuntar-archivos>
             </mat-form-field>
 
         </div>
@@ -42,7 +42,7 @@
 
             <mat-form-field class="itemFormulario" appearance="outline">
                 <mat-label>Tipo</mat-label>
-                <mat-select formControlName='tipo' required>
+                <mat-select formControlName='tipo'>
                   <mat-option *ngFor="let tipo of (tipos$ | async)" value='{{tipo.id}}'>
                     {{tipo.tipo}}
                   </mat-option>
@@ -51,7 +51,7 @@
         
               <mat-form-field class="itemFormulario" appearance="outline">
                 <mat-label>Emisor</mat-label>
-                <mat-select formControlName='emisor' required>
+                <mat-select formControlName='emisor'>
                   <mat-option *ngFor="let emisor of (emisores$ | async)" value='{{emisor.id}}'>
                     {{emisor.nombre}}
                   </mat-option>
@@ -60,7 +60,7 @@
               
               <mat-form-field class="itemFormulario" appearance="outline">
                 <mat-label>Estado</mat-label>
-                <mat-select formControlName='estado' required>
+                <mat-select formControlName='estado'>
                   <mat-option *ngFor="let estado of (estados$ | async)" value='{{estado}}'>
                     {{estado}}
                   </mat-option>
