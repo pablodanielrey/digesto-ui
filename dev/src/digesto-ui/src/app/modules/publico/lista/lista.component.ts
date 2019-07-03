@@ -43,7 +43,7 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
 
   tamano$: Observable<number>;
 
-  ordenar$ = new BehaviorSubject<Sort>({active:'fecha',direction:'desc'});
+  ordenar$ = new BehaviorSubject<Sort>({active:'fecha',direction:'asc'});
   pagina$ = new BehaviorSubject<PageEvent>({length: 0, pageIndex: 0, pageSize: 10});
   buscar$ = new BehaviorSubject<void>(null);
 
@@ -100,16 +100,16 @@ export class ListaComponent implements OnInit, OnDestroy, AfterViewInit {
                return ns;
             }
             return ns.sort((a,b) => {
-              if (s['active'] == 'numero') {
-                return this._comparar_numero(a, b, dir);
-              }
               if (s['active'] == 'fecha') {
                 return this._comparar_fecha(a, b, dir);
+              }
+              if (s['active'] == 'numero') {
+                return this._comparar_numero(a, b, dir);
               }
               if (s['active'] == 'tipo') {
                 return this._comparar_tipo(a, b, dir);
               }              
-              return this._comparar_creada(a, b, dir);
+              return this._comparar_fecha(a, b, dir);
             })
           })
         );
